@@ -3,297 +3,560 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Bond Monitor</title>
+  <title>Bond Monitor</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <style>
+    :root {
+      --bg: #05050e;
+      --card: #0a0a1a;
+      --border: rgba(255,255,255,0.06);
+      --green: #00e87a;
+      --amber: #f59e0b;
+      --red: #ef4444;
+      --blue: #38bdf8;
+      --text: #dde4f0;
+      --muted: #4a5568;
+      --mono: 'JetBrains Mono', monospace;
+      --sans: 'Syne', sans-serif;
+    }
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg); color: var(--text); font-family: var(--mono); overflow: hidden; }
 
-    body {
-      font-family: 'Source Serif 4', Georgia, serif;
-      color: #121212;
-      background: #fff;
-      line-height: 1.6;
+    /* ── Loader ── */
+    .loader {
+      position: fixed; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; background: var(--bg);
+      z-index: 9999; transition: opacity 0.8s ease;
     }
+    .loader.hidden { opacity: 0; pointer-events: none; }
+    .loader-text {
+      font-family: var(--mono); color: var(--green); font-size: 1.1rem;
+      letter-spacing: 0.4em; text-shadow: 0 0 20px rgba(0,232,122,0.5);
+    }
+    .loader-sub {
+      font-family: var(--sans); color: var(--muted); font-size: 0.75rem;
+      margin-top: 1rem; letter-spacing: 0.1em;
+    }
+    .loader-bar {
+      width: 200px; height: 2px; background: var(--border);
+      margin-top: 2rem; border-radius: 1px; overflow: hidden;
+    }
+    .loader-fill { height: 100%; background: var(--green); width: 0; animation: load 4s ease-out forwards; }
+    @keyframes load { 0%{width:0} 40%{width:55%} 80%{width:80%} 100%{width:100%} }
 
-    /* ── Masthead ── */
-    .masthead {
-      text-align: center;
-      padding: 2.5rem 1rem 1.5rem;
-      border-bottom: 3px double #121212;
+    /* ── Nav ── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; height: 52px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 1.5rem; background: rgba(5,5,14,0.88);
+      backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 200;
     }
-    .masthead h1 {
-      font-family: 'Playfair Display', serif;
-      font-weight: 900;
-      font-size: clamp(2.2rem, 5vw, 3.6rem);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+    .nav-left { display: flex; align-items: center; gap: 1rem; }
+    .logo {
+      font-family: var(--mono); font-weight: 700; font-size: 0.85rem;
+      letter-spacing: 0.25em; color: var(--green);
+      text-shadow: 0 0 12px rgba(0,232,122,0.4);
     }
-    .masthead .dateline {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 500;
-      font-size: 0.85rem;
-      color: #666;
-      margin-top: 0.4rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+    .live-pill {
+      font-family: var(--mono); font-size: 0.6rem; font-weight: 700;
+      background: var(--green); color: #000; padding: 2px 8px;
+      border-radius: 10px; letter-spacing: 0.08em; animation: pulse-live 2s infinite;
     }
+    @keyframes pulse-live { 0%,100%{opacity:1} 50%{opacity:0.5} }
+    .clock { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.05em; }
+    .nav-right { display: flex; align-items: center; gap: 0.6rem; }
+    .tag {
+      font-family: var(--mono); font-size: 0.6rem; font-weight: 500;
+      color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase;
+      border: 1px solid var(--border); padding: 3px 8px; border-radius: 3px;
+    }
+    .tag-sep { color: var(--muted); font-size: 0.6rem; }
+    .refresh-link {
+      font-family: var(--mono); font-size: 0.6rem; font-weight: 500;
+      color: var(--green); letter-spacing: 0.08em; text-transform: uppercase;
+      text-decoration: none; border: 1px solid rgba(0,232,122,0.2);
+      padding: 3px 8px; border-radius: 3px; transition: background 0.2s;
+    }
+    .refresh-link:hover { background: rgba(0,232,122,0.1); }
 
-    /* ── Red rule ── */
-    .red-rule {
-      border: none;
-      border-top: 3px solid #c62828;
-      margin: 0;
-    }
+    /* ── Globe ── */
+    #globe-container { position: fixed; top: 52px; left: 0; right: 0; bottom: 36px; }
 
-    /* ── Container ── */
-    .container {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 0 1.25rem;
+    /* ── Capital dots ── */
+    .capital-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--dot-color, var(--blue));
+      box-shadow: 0 0 6px var(--dot-color, var(--blue));
+      animation: dot-pulse 2.5s ease-in-out infinite;
+      pointer-events: none;
     }
-
-    /* ── Section ── */
-    .section {
-      padding: 2rem 0 1rem;
-    }
-    .section-label {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 700;
-      font-size: 0.8rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #c62828;
-      margin-bottom: 1.5rem;
-      padding-bottom: 0.4rem;
-      border-bottom: 1px solid #e0e0e0;
-    }
-
-    /* ── Country card ── */
-    .country {
-      margin-bottom: 2.5rem;
-    }
-    .country-header {
-      display: flex;
-      align-items: baseline;
-      gap: 0.65rem;
-      margin-bottom: 0.5rem;
-    }
-    .country-name {
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      font-size: 1.5rem;
-    }
-    .rating-badge {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 600;
-      font-size: 0.72rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      background: #121212;
-      color: #fff;
-      padding: 0.15em 0.55em;
-      border-radius: 2px;
-      position: relative;
-      top: -2px;
+    @keyframes dot-pulse {
+      0%,100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.8); opacity: 0.3; }
     }
 
-    .country-summary {
-      font-style: italic;
-      color: #333;
-      margin-bottom: 0.85rem;
-      font-size: 1.02rem;
-      line-height: 1.55;
-      border-left: 3px solid #c62828;
-      padding-left: 0.85rem;
+    /* ── Side Panel ── */
+    .panel {
+      position: fixed; top: 52px; right: 0; width: 380px; bottom: 36px;
+      background: var(--card); border-left: 1px solid var(--border);
+      transform: translateX(100%);
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 150; overflow-y: auto; padding: 1.5rem;
+    }
+    .panel.open { transform: translateX(0); }
+    .back-btn {
+      font-family: var(--mono); font-size: 0.7rem; color: var(--muted);
+      background: none; border: 1px solid var(--border); padding: 6px 12px;
+      border-radius: 4px; cursor: pointer; letter-spacing: 0.05em;
+      transition: color 0.2s, border-color 0.2s; margin-bottom: 1.5rem;
+    }
+    .back-btn:hover { color: var(--text); border-color: var(--text); }
+    .panel-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+    .panel-flag { font-size: 2rem; }
+    .panel-country { font-family: var(--sans); font-weight: 700; font-size: 1.4rem; }
+    .panel-badges { display: flex; gap: 0.5rem; margin-bottom: 1.25rem; }
+    .badge {
+      font-family: var(--mono); font-size: 0.65rem; font-weight: 700;
+      padding: 3px 10px; border-radius: 3px; letter-spacing: 0.08em;
+    }
+    .badge-rating { color: #000; }
+    .badge-category { background: var(--border); color: var(--muted); }
+    .panel-spread { display: flex; align-items: baseline; gap: 0.75rem; margin-bottom: 0.5rem; }
+    .spread-value {
+      font-family: var(--mono); font-size: 2.2rem; font-weight: 700;
+      text-shadow: 0 0 15px rgba(255,255,255,0.15);
+    }
+    .spread-unit { font-size: 0.8rem; color: var(--muted); margin-left: 2px; }
+    .spread-up { color: var(--red); font-size: 0.85rem; }
+    .spread-down { color: var(--green); font-size: 0.85rem; }
+    .spread-flat { color: var(--muted); font-size: 0.85rem; }
+    .sparkline { margin-bottom: 1rem; }
+    .signal-badge {
+      display: inline-block; font-family: var(--mono); font-size: 0.7rem;
+      font-weight: 700; padding: 5px 14px; border-radius: 4px;
+      letter-spacing: 0.12em; margin-bottom: 1.25rem;
+    }
+    .panel-divider { border-top: 1px solid var(--border); margin: 1rem 0; }
+    .panel-summary {
+      font-family: var(--sans); font-size: 0.88rem; color: var(--text);
+      line-height: 1.65; opacity: 0.85;
+    }
+    .panel-section-title {
+      font-family: var(--mono); font-size: 0.65rem; font-weight: 700;
+      color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .panel-headlines {
+      list-style: none; counter-reset: hl;
+    }
+    .panel-headlines li {
+      counter-increment: hl; padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
+      font-family: var(--sans); font-size: 0.82rem; line-height: 1.5;
+      display: flex; gap: 0.6rem;
+    }
+    .panel-headlines li::before {
+      content: counter(hl); font-family: var(--mono); font-weight: 700;
+      font-size: 0.9rem; color: var(--green); min-width: 1rem;
     }
 
-    .source-tag {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 500;
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #888;
-      margin-bottom: 0.6rem;
+    /* Untracked panel */
+    .untracked-msg { text-align: center; padding: 2rem 0; }
+    .untracked-msg p { font-family: var(--sans); font-size: 0.95rem; color: var(--text); margin-bottom: 0.5rem; }
+    .untracked-sub { color: var(--muted) !important; font-size: 0.8rem !important; margin-bottom: 1.5rem !important; }
+    .untracked-form { display: flex; gap: 0.5rem; justify-content: center; }
+    .untracked-input {
+      font-family: var(--mono); font-size: 0.75rem; padding: 8px 12px;
+      background: var(--bg); border: 1px solid var(--border); border-radius: 4px;
+      color: var(--text); outline: none; width: 180px;
+    }
+    .untracked-input:focus { border-color: var(--green); }
+    .untracked-submit {
+      font-family: var(--mono); font-size: 0.7rem; font-weight: 700;
+      background: var(--green); color: #000; border: none; padding: 8px 14px;
+      border-radius: 4px; cursor: pointer; letter-spacing: 0.05em;
     }
 
-    /* ── Headlines list ── */
-    .headlines {
-      list-style: none;
-      counter-reset: headline;
+    /* ── Ticker ── */
+    .ticker {
+      position: fixed; bottom: 0; left: 0; right: 0; height: 36px;
+      display: flex; align-items: center; background: rgba(5,5,14,0.92);
+      border-top: 1px solid var(--border); z-index: 200; overflow: hidden;
     }
-    .headlines li {
-      counter-increment: headline;
-      padding: 0.55rem 0;
-      border-bottom: 1px solid #eee;
-      display: flex;
-      gap: 0.7rem;
+    .ticker-label {
+      font-family: var(--mono); font-size: 0.55rem; font-weight: 700;
+      color: #000; background: var(--green); padding: 4px 10px;
+      letter-spacing: 0.12em; flex-shrink: 0;
     }
-    .headlines li::before {
-      content: counter(headline);
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      font-size: 1.3rem;
-      color: #c62828;
-      min-width: 1.2rem;
-      line-height: 1.35;
+    .ticker-track { overflow: hidden; flex: 1; }
+    .ticker-content {
+      display: flex; white-space: nowrap;
+      animation: ticker-scroll 90s linear infinite;
     }
-    .headline-text {
-      font-size: 0.97rem;
+    .ticker-item {
+      font-family: var(--mono); font-size: 0.65rem; color: var(--text);
+      padding: 0 2rem; opacity: 0.7;
     }
-    .headline-text strong {
-      display: block;
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      font-size: 1.05rem;
-      line-height: 1.35;
-      margin-bottom: 0.15rem;
+    .ticker-tag {
+      font-weight: 700; margin-right: 0.5rem;
     }
-    .headline-text span {
-      color: #444;
-      font-size: 0.92rem;
-    }
+    @keyframes ticker-scroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-    /* ── Loading / Error ── */
-    .status {
-      text-align: center;
-      padding: 4rem 1rem;
-      font-family: 'Source Serif 4', serif;
-      color: #666;
-      font-size: 1.1rem;
-    }
-
-    /* ── Refresh button ── */
-    .refresh-btn {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 600;
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #fff;
-      background: #121212;
-      border: none;
-      padding: 0.45em 1.2em;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-      margin-top: 0.6rem;
-      transition: background 0.2s;
-    }
-    .refresh-btn:hover {
-      background: #c62828;
-    }
-
-    /* ── Footer ── */
-    footer {
-      text-align: center;
-      padding: 2rem 1rem;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #999;
-      border-top: 1px solid #e0e0e0;
-      margin-top: 1rem;
+    /* ── Mobile ── */
+    @media (max-width: 640px) {
+      .nav-right { display: none; }
+      .panel { width: 100%; }
     }
   </style>
 </head>
 <body>
-  <header class="masthead">
-    <h1>The Bond Monitor</h1>
-    <p class="dateline" id="dateline">Loading&hellip;</p>
-    <a class="refresh-btn" href="https://github.com/alakhotia160011/bondmonitor/actions/workflows/refresh.yml" target="_blank" rel="noopener">&#x21bb; Refresh Data</a>
-  </header>
-  <hr class="red-rule" />
+  <!-- Loader -->
+  <div id="loader" class="loader">
+    <div class="loader-text">B O N D &nbsp; M O N I T O R</div>
+    <div class="loader-sub">Initializing global coverage...</div>
+    <div class="loader-bar"><div class="loader-fill"></div></div>
+  </div>
 
-  <main class="container" id="app">
-    <p class="status">Loading data&hellip;</p>
-  </main>
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-left">
+      <span class="logo">BOND MONITOR</span>
+      <span class="live-pill">&bull; LIVE</span>
+    </div>
+    <span class="clock" id="clock">--:--:-- UTC</span>
+    <div class="nav-right">
+      <span class="tag" id="country-count">9 COUNTRIES</span>
+      <span class="tag-sep">|</span>
+      <span class="tag">LATAM SOVEREIGN</span>
+      <a class="refresh-link" href="https://github.com/alakhotia160011/bondmonitor/actions/workflows/refresh.yml" target="_blank" rel="noopener">&#x21bb; REFRESH</a>
+    </div>
+  </nav>
 
-  <footer>LATAM Sovereign Bond Intelligence</footer>
+  <!-- Globe -->
+  <div id="globe-container"></div>
 
+  <!-- Side Panel -->
+  <aside id="panel" class="panel"></aside>
+
+  <!-- Ticker -->
+  <div class="ticker">
+    <div class="ticker-label">HEADLINES</div>
+    <div class="ticker-track">
+      <div class="ticker-content" id="ticker-content"></div>
+    </div>
+  </div>
+
+  <script src="//unpkg.com/three@0.160.0/build/three.min.js"></script>
+  <script src="//unpkg.com/globe.gl@2.31.1/dist/globe.gl.min.js"></script>
   <script>
-    (async function () {
-      const app = document.getElementById('app');
-      const dateline = document.getElementById('dateline');
+  (async function () {
+    // ── Color helpers ──
+    const SIGNAL_COLORS = { BUY: '#00e87a', WATCH: '#f59e0b', AVOID: '#ef4444', NEUTRAL: '#38bdf8' };
+    const CAT_COLORS = { IG: '#00e87a', HY: '#f59e0b' };
 
-      try {
-        const res = await fetch('data.json');
-        if (!res.ok) throw new Error('data.json not found');
-        const data = await res.json();
+    // ── Load data ──
+    let bondData, tracked;
+    try {
+      bondData = await (await fetch('data.json')).json();
+      tracked = new Map(bondData.countries.map(c => [c.iso_a3, c]));
+    } catch (e) {
+      console.warn('data.json not loaded:', e);
+      bondData = { timestamp: new Date().toISOString(), countries: [] };
+      tracked = new Map();
+    }
 
-        // Format timestamp
-        const ts = new Date(data.timestamp);
-        dateline.textContent = ts.toLocaleDateString('en-US', {
-          weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
-          hour: 'numeric', minute: '2-digit', timeZoneName: 'short'
-        });
+    // ── Load GeoJSON ──
+    // Using datasets/geo-countries for full global coverage (~23MB, cached after first load).
+    // For faster loads, swap with Natural Earth 110m: https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_admin_0_countries.geojson
+    const GEOJSON_URL = 'https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson';
+    let geoFeatures = [];
+    try {
+      const geo = await (await fetch(GEOJSON_URL)).json();
+      geoFeatures = geo.features.filter(f => {
+        const iso = f.properties.ISO_A3;
+        return iso && iso !== '-99';
+      });
+    } catch (e) {
+      console.error('GeoJSON failed to load:', e);
+    }
 
-        app.innerHTML = renderSection('Investment Grade', data.investment_grade)
-                      + '<hr class="red-rule">'
-                      + renderSection('High Yield', data.high_yield);
-      } catch (err) {
-        app.innerHTML = '<p class="status">Unable to load data. The scraper may not have run yet.</p>';
-        dateline.textContent = '';
-        console.error(err);
+    // ── Create globe ──
+    const container = document.getElementById('globe-container');
+
+    const globe = Globe()
+      .backgroundColor('#05050e')
+      .showAtmosphere(true)
+      .atmosphereColor('#00e87a')
+      .atmosphereAltitude(0.12)
+      // ── Country polygons ──
+      .polygonsData(geoFeatures)
+      .polygonCapColor(f => polyColor(f, false))
+      .polygonSideColor(() => 'rgba(0,0,0,0)')
+      .polygonStrokeColor(() => 'rgba(255,255,255,0.08)')
+      .polygonAltitude(f => tracked.has(f.properties.ISO_A3) ? 0.008 : 0.003)
+      .polygonsTransitionDuration(300)
+      .onPolygonHover(feat => {
+        globe
+          .polygonCapColor(f => polyColor(f, f === feat))
+          .polygonAltitude(f => {
+            if (f === feat) return 0.02;
+            return tracked.has(f.properties.ISO_A3) ? 0.008 : 0.003;
+          });
+        container.style.cursor = feat ? 'pointer' : 'default';
+      })
+      .onPolygonClick(feat => {
+        if (!feat) return;
+        const iso = feat.properties.ISO_A3;
+        const c = getCentroid(feat);
+        globe.pointOfView({ lat: c.lat, lng: c.lng, altitude: 1.5 }, 1000);
+        showPanel(iso, feat.properties.ADMIN || feat.properties.NAME || iso);
+      })
+      // ── Capital dots (tracked countries only) ──
+      .htmlElementsData(bondData.countries)
+      .htmlLat(d => d.capital.lat)
+      .htmlLng(d => d.capital.lng)
+      .htmlAltitude(0.012)
+      .htmlElement(d => {
+        const el = document.createElement('div');
+        el.className = 'capital-dot';
+        el.style.setProperty('--dot-color', SIGNAL_COLORS[d.signal] || '#38bdf8');
+        return el;
+      })
+      (container);
+
+    // ── Dark globe material (remove default Earth texture) ──
+    const mat = globe.globeMaterial();
+    mat.color = new THREE.Color(0x070720);
+    mat.emissive = new THREE.Color(0x020210);
+    mat.shininess = 5;
+    // Remove blue marble texture if present
+    if (mat.map) { mat.map = null; mat.needsUpdate = true; }
+
+    // ── Grid lines (lat/lng every 15°) ──
+    const gridMat = new THREE.LineBasicMaterial({ color: 0x00e87a, transparent: true, opacity: 0.06 });
+    const R = 100.3;
+    for (let lat = -75; lat <= 75; lat += 15) {
+      const phi = (90 - lat) * Math.PI / 180;
+      const r = R * Math.sin(phi), y = R * Math.cos(phi);
+      const pts = [];
+      for (let i = 0; i <= 72; i++) {
+        const t = (i / 72) * Math.PI * 2;
+        pts.push(new THREE.Vector3(r * Math.cos(t), y, r * Math.sin(t)));
       }
+      globe.scene().add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), gridMat));
+    }
+    for (let lng = 0; lng < 360; lng += 15) {
+      const t = lng * Math.PI / 180;
+      const pts = [];
+      for (let i = 0; i <= 72; i++) {
+        const phi = (i / 72) * Math.PI;
+        pts.push(new THREE.Vector3(
+          R * Math.sin(phi) * Math.cos(t), R * Math.cos(phi), R * Math.sin(phi) * Math.sin(t)
+        ));
+      }
+      globe.scene().add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), gridMat));
+    }
 
-      function renderSection(title, countries) {
-        let html = `<section class="section"><p class="section-label">${title}</p>`;
-        for (const [name, info] of Object.entries(countries)) {
-          const articles = info.articles || [];
-          html += `<article class="country">
-            <div class="country-header">
-              <h2 class="country-name">${esc(name)}</h2>
-              <span class="rating-badge">${esc(info.rating)}</span>
-            </div>`;
+    // ── Star field ──
+    const starGeo = new THREE.BufferGeometry();
+    const starPos = [];
+    for (let i = 0; i < 2500; i++) {
+      const r = 400 + Math.random() * 800;
+      const t = Math.random() * Math.PI * 2;
+      const p = Math.random() * Math.PI;
+      starPos.push(r*Math.sin(p)*Math.cos(t), r*Math.sin(p)*Math.sin(t), r*Math.cos(p));
+    }
+    starGeo.setAttribute('position', new THREE.Float32BufferAttribute(starPos, 3));
+    globe.scene().add(new THREE.Points(starGeo,
+      new THREE.PointsMaterial({ color: 0xffffff, size: 0.6, transparent: true, opacity: 0.5 })
+    ));
 
-          for (const a of articles) {
-            const parsed = parseSummary(a.summary);
-            html += `<p class="source-tag">Source: ${esc(a.source)}</p>`;
-            if (parsed.summary) {
-              html += `<p class="country-summary">${esc(parsed.summary)}</p>`;
-            }
-            if (parsed.headlines.length) {
-              html += '<ol class="headlines">';
-              for (const h of parsed.headlines) {
-                html += `<li><div class="headline-text"><strong>${esc(h.title)}</strong><span>${esc(h.impact)}</span></div></li>`;
-              }
-              html += '</ol>';
-            }
-          }
+    // ── Auto-rotate ──
+    const controls = globe.controls();
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 0.4;
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.1;
+    controls.minDistance = 120;
+    controls.maxDistance = 500;
 
-          if (!articles.length) {
-            html += '<p class="source-tag">No data available</p>';
-          }
-          html += '</article>';
+    let idleTimer;
+    function pauseRotation() {
+      controls.autoRotate = false;
+      clearTimeout(idleTimer);
+      idleTimer = setTimeout(() => { controls.autoRotate = true; }, 3000);
+    }
+    container.addEventListener('mousedown', pauseRotation);
+    container.addEventListener('wheel', pauseRotation);
+    container.addEventListener('touchstart', pauseRotation, { passive: true });
+
+    // ── Start with LATAM view ──
+    globe.pointOfView({ lat: 5, lng: -65, altitude: 2.5 });
+
+    // ── Resize ──
+    window.addEventListener('resize', () => {
+      globe.width(container.clientWidth);
+      globe.height(container.clientHeight);
+    });
+
+    // ── Hide loader ──
+    setTimeout(() => document.getElementById('loader').classList.add('hidden'), 800);
+
+    // ── UTC clock ──
+    function updateClock() {
+      document.getElementById('clock').textContent = new Date().toISOString().slice(11, 19) + ' UTC';
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // ── Ticker ──
+    const tickerEl = document.getElementById('ticker-content');
+    if (bondData.countries.length) {
+      const items = bondData.countries.flatMap(c =>
+        c.headlines.map(h =>
+          `<span class="ticker-item"><span class="ticker-tag" style="color:${SIGNAL_COLORS[c.signal] || '#38bdf8'}">${esc(c.code)}</span>${esc(h)}</span>`
+        )
+      );
+      // Duplicate for seamless loop
+      tickerEl.innerHTML = items.join('') + items.join('');
+    }
+
+    // ── Country count ──
+    document.getElementById('country-count').textContent = bondData.countries.length + ' COUNTRIES';
+
+    // ──────────────────────────────────────
+    //  HELPERS
+    // ──────────────────────────────────────
+
+    function polyColor(feat, isHovered) {
+      const iso = feat.properties.ISO_A3;
+      const c = tracked.get(iso);
+      if (isHovered) {
+        if (c) {
+          const sc = SIGNAL_COLORS[c.signal] || '#38bdf8';
+          return hexToRgba(sc, 0.35);
         }
-        html += '</section>';
-        return html;
+        return 'rgba(255,255,255,0.15)';
       }
+      if (c) return hexToRgba(CAT_COLORS[c.category] || '#38bdf8', 0.12);
+      return 'rgba(255,255,255,0.04)';
+    }
 
-      function parseSummary(raw) {
-        const summary = (raw.match(/\[SUMMARY START\]([\s\S]*?)\[SUMMARY END\]/i) || [])[1]?.trim() || '';
-        const headlines = [];
-        const hlBlock = raw.split(/Top Bond-Relevant Headlines:/i)[1] || '';
-        const items = hlBlock.split(/\n\s*\d+\.\s+/).filter(Boolean);
-        for (const item of items) {
-          const lines = item.trim().split('\n').filter(Boolean);
-          const title = lines[0]?.replace(/^<|>$/g, '').trim() || '';
-          const impact = lines.slice(1).join(' ').replace(/^<|>$/g, '').trim();
-          if (title) headlines.push({ title, impact });
-        }
-        return { summary, headlines };
-      }
+    function getCentroid(feat) {
+      const coords = [];
+      (function extract(geo) {
+        if (geo.type === 'Polygon') geo.coordinates[0].forEach(c => coords.push(c));
+        else if (geo.type === 'MultiPolygon') geo.coordinates.forEach(p => p[0].forEach(c => coords.push(c)));
+      })(feat.geometry);
+      return {
+        lng: coords.reduce((s, c) => s + c[0], 0) / coords.length,
+        lat: coords.reduce((s, c) => s + c[1], 0) / coords.length
+      };
+    }
 
-      function esc(s) {
-        const d = document.createElement('div');
-        d.textContent = s || '';
-        return d.innerHTML;
-      }
-    })();
+    function hexToRgba(hex, a) {
+      const n = parseInt(hex.replace('#', ''), 16);
+      return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${a})`;
+    }
+
+    function esc(s) {
+      const d = document.createElement('div');
+      d.textContent = s || '';
+      return d.innerHTML;
+    }
+
+    // ──────────────────────────────────────
+    //  SIDE PANEL
+    // ──────────────────────────────────────
+
+    const panel = document.getElementById('panel');
+
+    function showPanel(iso, name) {
+      const c = tracked.get(iso);
+      panel.innerHTML = c ? renderTracked(c) : renderUntracked(name);
+      panel.classList.add('open');
+      panel.querySelector('.back-btn').addEventListener('click', () => {
+        panel.classList.remove('open');
+        globe.pointOfView({ lat: 5, lng: -65, altitude: 2.5 }, 1000);
+      });
+    }
+
+    function renderTracked(c) {
+      const chg = c.spread_change;
+      const chgClass = chg > 0 ? 'spread-up' : chg < 0 ? 'spread-down' : 'spread-flat';
+      const chgSign = chg > 0 ? '+' : '';
+      const sigColor = SIGNAL_COLORS[c.signal] || '#38bdf8';
+      const catColor = CAT_COLORS[c.category] || '#38bdf8';
+      return `
+        <button class="back-btn">&larr; Back to Globe</button>
+        <div class="panel-header">
+          <span class="panel-flag">${c.flag}</span>
+          <h2 class="panel-country">${esc(c.country)}</h2>
+        </div>
+        <div class="panel-badges">
+          <span class="badge badge-rating" style="background:${catColor}">${esc(c.rating)}</span>
+          <span class="badge badge-category">${c.category === 'IG' ? 'Investment Grade' : 'High Yield'}</span>
+        </div>
+        <div class="panel-spread">
+          <span class="spread-value">${c.spread}<span class="spread-unit">bps</span></span>
+          <span class="${chgClass}">${chgSign}${chg}</span>
+        </div>
+        <div class="sparkline">${sparkline(c.spread_history, sigColor)}</div>
+        <span class="signal-badge" style="background:${hexToRgba(sigColor,0.12)};color:${sigColor};border:1px solid ${hexToRgba(sigColor,0.25)}">${c.signal}</span>
+        <div class="panel-divider"></div>
+        <p class="panel-summary">${esc(c.summary)}</p>
+        <div class="panel-divider"></div>
+        <h3 class="panel-section-title">Top Headlines</h3>
+        <ol class="panel-headlines">${c.headlines.map(h => `<li>${esc(h)}</li>`).join('')}</ol>
+      `;
+    }
+
+    function renderUntracked(name) {
+      return `
+        <button class="back-btn">&larr; Back to Globe</button>
+        <div class="panel-header">
+          <span class="panel-flag">&#x1f310;</span>
+          <h2 class="panel-country">${esc(name)}</h2>
+        </div>
+        <div class="untracked-msg">
+          <p>Coverage coming soon &mdash; Bond Monitor is expanding.</p>
+          <p class="untracked-sub">Submit a source to help us add this country.</p>
+          <form class="untracked-form" onsubmit="event.preventDefault();this.querySelector('button').textContent='Submitted!';this.querySelector('input').disabled=true">
+            <input type="email" placeholder="your@email.com" class="untracked-input" required />
+            <button type="submit" class="untracked-submit">Submit</button>
+          </form>
+        </div>
+      `;
+    }
+
+    function sparkline(data, color) {
+      if (!data || !data.length) return '';
+      const w = 220, h = 44, pad = 4;
+      const min = Math.min(...data) - 5, max = Math.max(...data) + 5;
+      const range = max - min || 1;
+      const pts = data.map((v, i) =>
+        `${pad + (i / (data.length - 1)) * (w - pad * 2)},${pad + (1 - (v - min) / range) * (h - pad * 2)}`
+      ).join(' ');
+      const lastX = pad + (w - pad * 2);
+      const lastY = pad + (1 - (data[data.length - 1] - min) / range) * (h - pad * 2);
+      return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+        <polyline points="${pts}" fill="none" stroke="${color}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+        <circle cx="${lastX}" cy="${lastY}" r="3" fill="${color}"/>
+      </svg>`;
+    }
+
+    // ──────────────────────────────────────
+    //  TO ADD A NEW COUNTRY:
+    //  Just add an object to the "countries" array in data.json
+    //  with the same fields (country, code, iso_a3, rating, etc).
+    //  The globe already renders all ~195 countries from GeoJSON.
+    //  Tracked countries (those in data.json) get richer colors,
+    //  pulsing capital dots, and full detail panels.
+    // ──────────────────────────────────────
+
+  })();
   </script>
 </body>
 </html>

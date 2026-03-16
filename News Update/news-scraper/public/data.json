@@ -1,0 +1,176 @@
+{
+  "timestamp": "2026-03-16T12:00:00Z",
+  "countries": [
+    {
+      "country": "Mexico",
+      "code": "MEX",
+      "iso_a3": "MEX",
+      "rating": "BBB",
+      "category": "IG",
+      "spread": 145,
+      "spread_change": 2,
+      "signal": "NEUTRAL",
+      "flag": "\ud83c\uddf2\ud83c\uddfd",
+      "capital": { "name": "Mexico City", "lat": 19.43, "lng": -99.13 },
+      "spread_history": [138,140,142,139,141,143,145,144,142,140,139,141,143,145,147,146,144,143,141,140,142,144,146,148,147,145,143,142,144,145],
+      "headlines": [
+        "Banxico holds rate at 10.75%, signals cautious easing path",
+        "Mexico fiscal deficit widens to 3.2% of GDP on infrastructure spend",
+        "Nearshoring drives record FDI inflows in Q1 2026"
+      ],
+      "summary": "Mexico maintains monetary stability as Banxico signals a cautious easing cycle. Fiscal pressures from infrastructure spending are offset by strong nearshoring-driven FDI inflows."
+    },
+    {
+      "country": "Chile",
+      "code": "CHL",
+      "iso_a3": "CHL",
+      "rating": "A",
+      "category": "IG",
+      "spread": 85,
+      "spread_change": -3,
+      "signal": "BUY",
+      "flag": "\ud83c\udde8\ud83c\uddf1",
+      "capital": { "name": "Santiago", "lat": -33.45, "lng": -70.67 },
+      "spread_history": [95,93,91,94,92,90,88,89,87,86,88,90,88,86,85,87,86,84,83,85,87,86,84,83,85,86,84,83,85,85],
+      "headlines": [
+        "Chile central bank cuts rate 25bps to 5.25%, citing disinflation",
+        "Copper prices surge 8% on China stimulus, boosting fiscal outlook",
+        "Lithium royalty framework finalized, attracting $4B in commitments"
+      ],
+      "summary": "Chile benefits from strong copper prices and successful lithium policy. The central bank's easing cycle supports growth while fiscal accounts remain healthy."
+    },
+    {
+      "country": "Brazil",
+      "code": "BRA",
+      "iso_a3": "BRA",
+      "rating": "BB",
+      "category": "IG",
+      "spread": 195,
+      "spread_change": 5,
+      "signal": "WATCH",
+      "flag": "\ud83c\udde7\ud83c\uddf7",
+      "capital": { "name": "Bras\u00edlia", "lat": -15.79, "lng": -47.88 },
+      "spread_history": [178,180,182,179,183,185,188,186,184,187,189,191,188,190,192,194,191,189,192,194,196,193,191,193,195,197,194,192,194,195],
+      "headlines": [
+        "Brazil's fiscal framework under pressure as spending breaches ceiling",
+        "Selic rate held at 13.25% as BCB flags inflation persistence",
+        "Real weakens past 5.30/USD amid global risk-off sentiment"
+      ],
+      "summary": "Brazil faces fiscal credibility concerns as spending approaches framework limits. The BCB maintains a hawkish stance with inflation proving stickier than expected."
+    },
+    {
+      "country": "Panama",
+      "code": "PAN",
+      "iso_a3": "PAN",
+      "rating": "BBB",
+      "category": "IG",
+      "spread": 130,
+      "spread_change": 0,
+      "signal": "NEUTRAL",
+      "flag": "\ud83c\uddf5\ud83c\udde6",
+      "capital": { "name": "Panama City", "lat": 8.98, "lng": -79.52 },
+      "spread_history": [128,130,129,131,130,132,131,129,130,128,130,131,129,130,132,131,130,128,129,131,130,132,131,129,130,128,130,131,129,130],
+      "headlines": [
+        "Panama Canal revenues recover as drought conditions ease",
+        "Government unveils fiscal consolidation plan targeting 2% deficit",
+        "Cobre Panam\u00e1 mine closure impact on GDP revised to -3.5%"
+      ],
+      "summary": "Panama sees improved canal revenue outlook as water levels normalize. Fiscal consolidation efforts continue but the Cobre Panam\u00e1 mine closure weighs on medium-term growth."
+    },
+    {
+      "country": "Ecuador",
+      "code": "ECU",
+      "iso_a3": "ECU",
+      "rating": "B",
+      "category": "HY",
+      "spread": 650,
+      "spread_change": 15,
+      "signal": "AVOID",
+      "flag": "\ud83c\uddea\ud83c\udde8",
+      "capital": { "name": "Quito", "lat": -0.18, "lng": -78.47 },
+      "spread_history": [580,590,600,595,610,620,615,625,630,620,635,640,630,645,650,640,655,660,650,645,640,650,655,665,660,655,645,650,660,650],
+      "headlines": [
+        "Ecuador oil output falls 12% on pipeline disruptions and protests",
+        "IMF review delayed amid fiscal target slippage concerns",
+        "Security crisis deepens as state of emergency extended"
+      ],
+      "summary": "Ecuador faces compounding pressures from declining oil output, security challenges, and delayed IMF disbursements. Fiscal consolidation targets appear increasingly difficult to achieve."
+    },
+    {
+      "country": "El Salvador",
+      "code": "SLV",
+      "iso_a3": "SLV",
+      "rating": "B-",
+      "category": "HY",
+      "spread": 400,
+      "spread_change": -8,
+      "signal": "WATCH",
+      "flag": "\ud83c\uddf8\ud83c\uddfb",
+      "capital": { "name": "San Salvador", "lat": 13.69, "lng": -89.19 },
+      "spread_history": [450,445,440,435,438,432,428,425,430,425,420,418,422,418,415,412,416,413,410,408,412,410,406,404,408,405,402,400,402,400],
+      "headlines": [
+        "El Salvador reaches staff-level agreement with IMF on $1.4B program",
+        "Bitcoin reserve strategy generates $120M unrealized gain in Q1",
+        "Bukele government rolls back Bitcoin legal tender requirement for merchants"
+      ],
+      "summary": "El Salvador's IMF deal progress drives significant spread tightening. The pragmatic scaling back of Bitcoin legal tender requirements improves institutional investor sentiment."
+    },
+    {
+      "country": "Argentina",
+      "code": "ARG",
+      "iso_a3": "ARG",
+      "rating": "C",
+      "category": "HY",
+      "spread": 1200,
+      "spread_change": -25,
+      "signal": "WATCH",
+      "flag": "\ud83c\udde6\ud83c\uddf7",
+      "capital": { "name": "Buenos Aires", "lat": -34.60, "lng": -58.38 },
+      "spread_history": [1350,1340,1320,1330,1310,1300,1290,1310,1280,1270,1290,1260,1250,1270,1240,1230,1250,1220,1210,1230,1200,1210,1190,1200,1220,1210,1195,1200,1210,1200],
+      "headlines": [
+        "Argentina posts first fiscal surplus in 15 years under Milei austerity",
+        "IMF approves $15B extended fund facility with strict conditionality",
+        "Monthly inflation drops to 3.2%, lowest since 2021"
+      ],
+      "summary": "Argentina's aggressive fiscal adjustment under Milei shows early results with a primary surplus and declining inflation. IMF program approval provides critical external financing anchor."
+    },
+    {
+      "country": "Dominican Republic",
+      "code": "DOM",
+      "iso_a3": "DOM",
+      "rating": "BB-",
+      "category": "HY",
+      "spread": 250,
+      "spread_change": 1,
+      "signal": "NEUTRAL",
+      "flag": "\ud83c\udde9\ud83c\uddf4",
+      "capital": { "name": "Santo Domingo", "lat": 18.47, "lng": -69.90 },
+      "spread_history": [245,248,246,250,248,252,250,248,246,249,251,248,250,252,249,251,248,250,252,249,251,248,250,252,249,251,248,250,252,250],
+      "headlines": [
+        "Dominican Republic GDP grows 5.1% in 2025, leading the region",
+        "Tourism revenue hits record $10.2B as arrivals surge 12%",
+        "Central bank holds rate at 6.25%, inflation within target band"
+      ],
+      "summary": "The Dominican Republic continues as the region's growth leader driven by robust tourism and services sectors. Sound monetary policy keeps inflation contained within the target band."
+    },
+    {
+      "country": "Colombia",
+      "code": "COL",
+      "iso_a3": "COL",
+      "rating": "BB+",
+      "category": "HY",
+      "spread": 210,
+      "spread_change": 4,
+      "signal": "WATCH",
+      "flag": "\ud83c\udde8\ud83c\uddf4",
+      "capital": { "name": "Bogot\u00e1", "lat": 4.71, "lng": -74.07 },
+      "spread_history": [195,198,196,200,198,202,200,198,201,203,200,205,202,204,206,203,208,205,207,210,206,208,210,207,209,212,208,210,212,210],
+      "headlines": [
+        "Colombia fiscal reform faces congressional resistance, markets wary",
+        "BanRep cuts rate 50bps to 9.5% as inflation eases to 6.8%",
+        "Petro government pension reform passes first debate"
+      ],
+      "summary": "Colombia's fiscal outlook remains uncertain amid reform challenges in congress. The central bank continues its easing cycle but political uncertainty weighs on investor confidence."
+    }
+  ]
+}
