@@ -165,6 +165,27 @@
       font-size: 1.1rem;
     }
 
+    /* ── Refresh button ── */
+    .refresh-btn {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #fff;
+      background: #121212;
+      border: none;
+      padding: 0.45em 1.2em;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 0.6rem;
+      transition: background 0.2s;
+    }
+    .refresh-btn:hover {
+      background: #c62828;
+    }
+
     /* ── Footer ── */
     footer {
       text-align: center;
@@ -183,6 +204,7 @@
   <header class="masthead">
     <h1>The Bond Monitor</h1>
     <p class="dateline" id="dateline">Loading&hellip;</p>
+    <a class="refresh-btn" href="https://github.com/alakhotia160011/bondmonitor/actions/workflows/refresh.yml" target="_blank" rel="noopener">&#x21bb; Refresh Data</a>
   </header>
   <hr class="red-rule" />
 
