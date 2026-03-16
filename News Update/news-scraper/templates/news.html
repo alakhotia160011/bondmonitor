@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LATAM News Summaries</title>
+  <style>
+    body { font-family: sans-serif; max-width: 800px; margin: 2rem auto; }
+    h1 { text-align: center; }
+    h2 { margin-top: 1.5rem; }
+    .card {
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: #fafafa;
+    }
+    .timestamp { font-size: 0.9rem; color: #666; margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+  <h1>🌎 LATAM News Summaries</h1>
+  <p class="timestamp">Last run: {{ news.timestamp if news.timestamp else "just now" }}</p>
+  {% for category, articles in news.items() %}
+    {% if category not in ("timestamp",) %}
+      <h2>{{ category }}</h2>
+      {% for art in articles %}
+        <div class="card">
+          <strong>{{ art.source }}</strong>
+          <p>{{ art.summary|replace("\n", "<br>")|safe }}</p>
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
+</body>
+</html>

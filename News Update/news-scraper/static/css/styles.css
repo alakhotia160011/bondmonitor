@@ -1,0 +1,72 @@
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+/* Page Header */
+h1 {
+    text-align: center;
+    color: #222;
+    margin: 20px 0;
+}
+
+/* Category Section */
+section {
+    margin: 20px auto;
+    padding: 10px;
+    width: 90%;
+    max-width: 1000px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Country Styling */
+.country {
+    margin: 15px 0;
+    padding: 10px;
+    border-left: 4px solid #007bff;
+    background: #f9f9f9;
+    border-radius: 3px;
+}
+
+.country h3 {
+    margin: 0;
+    color: #007bff;
+}
+
+/* Article Styling */
+.article {
+    margin: 10px 0;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.article h4 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.article p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #555;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin: 20px 0;
+    color: #555;
+}
+
+footer a {
+    color: #007bff;
+    text-decoration: none;
+}

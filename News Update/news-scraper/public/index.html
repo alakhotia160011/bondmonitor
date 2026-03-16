@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Bond Monitor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Source Serif 4', Georgia, serif;
+      color: #121212;
+      background: #fff;
+      line-height: 1.6;
+    }
+
+    /* ── Masthead ── */
+    .masthead {
+      text-align: center;
+      padding: 2.5rem 1rem 1.5rem;
+      border-bottom: 3px double #121212;
+    }
+    .masthead h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .masthead .dateline {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 500;
+      font-size: 0.85rem;
+      color: #666;
+      margin-top: 0.4rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ── Red rule ── */
+    .red-rule {
+      border: none;
+      border-top: 3px solid #c62828;
+      margin: 0;
+    }
+
+    /* ── Container ── */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    /* ── Section ── */
+    .section {
+      padding: 2rem 0 1rem;
+    }
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #c62828;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    /* ── Country card ── */
+    .country {
+      margin-bottom: 2.5rem;
+    }
+    .country-header {
+      display: flex;
+      align-items: baseline;
+      gap: 0.65rem;
+      margin-bottom: 0.5rem;
+    }
+    .country-name {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+    .rating-badge {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: #121212;
+      color: #fff;
+      padding: 0.15em 0.55em;
+      border-radius: 2px;
+      position: relative;
+      top: -2px;
+    }
+
+    .country-summary {
+      font-style: italic;
+      color: #333;
+      margin-bottom: 0.85rem;
+      font-size: 1.02rem;
+      line-height: 1.55;
+      border-left: 3px solid #c62828;
+      padding-left: 0.85rem;
+    }
+
+    .source-tag {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 500;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 0.6rem;
+    }
+
+    /* ── Headlines list ── */
+    .headlines {
+      list-style: none;
+      counter-reset: headline;
+    }
+    .headlines li {
+      counter-increment: headline;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      gap: 0.7rem;
+    }
+    .headlines li::before {
+      content: counter(headline);
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #c62828;
+      min-width: 1.2rem;
+      line-height: 1.35;
+    }
+    .headline-text {
+      font-size: 0.97rem;
+    }
+    .headline-text strong {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      line-height: 1.35;
+      margin-bottom: 0.15rem;
+    }
+    .headline-text span {
+      color: #444;
+      font-size: 0.92rem;
+    }
+
+    /* ── Loading / Error ── */
+    .status {
+      text-align: center;
+      padding: 4rem 1rem;
+      font-family: 'Source Serif 4', serif;
+      color: #666;
+      font-size: 1.1rem;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #999;
+      border-top: 1px solid #e0e0e0;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="masthead">
+    <h1>The Bond Monitor</h1>
+    <p class="dateline" id="dateline">Loading&hellip;</p>
+  </header>
+  <hr class="red-rule" />
+
+  <main class="container" id="app">
+    <p class="status">Loading data&hellip;</p>
+  </main>
+
+  <footer>LATAM Sovereign Bond Intelligence</footer>
+
+  <script>
+    (async function () {
+      const app = document.getElementById('app');
+      const dateline = document.getElementById('dateline');
+
+      try {
+        const res = await fetch('data.json');
+        if (!res.ok) throw new Error('data.json not found');
+        const data = await res.json();
+
+        // Format timestamp
+        const ts = new Date(data.timestamp);
+        dateline.textContent = ts.toLocaleDateString('en-US', {
+          weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+          hour: 'numeric', minute: '2-digit', timeZoneName: 'short'
+        });
+
+        app.innerHTML = renderSection('Investment Grade', data.investment_grade)
+                      + '<hr class="red-rule">'
+                      + renderSection('High Yield', data.high_yield);
+      } catch (err) {
+        app.innerHTML = '<p class="status">Unable to load data. The scraper may not have run yet.</p>';
+        dateline.textContent = '';
+        console.error(err);
+      }
+
+      function renderSection(title, countries) {
+        let html = `<section class="section"><p class="section-label">${title}</p>`;
+        for (const [name, info] of Object.entries(countries)) {
+          const articles = info.articles || [];
+          html += `<article class="country">
+            <div class="country-header">
+              <h2 class="country-name">${esc(name)}</h2>
+              <span class="rating-badge">${esc(info.rating)}</span>
+            </div>`;
+
+          for (const a of articles) {
+            const parsed = parseSummary(a.summary);
+            html += `<p class="source-tag">Source: ${esc(a.source)}</p>`;
+            if (parsed.summary) {
+              html += `<p class="country-summary">${esc(parsed.summary)}</p>`;
+            }
+            if (parsed.headlines.length) {
+              html += '<ol class="headlines">';
+              for (const h of parsed.headlines) {
+                html += `<li><div class="headline-text"><strong>${esc(h.title)}</strong><span>${esc(h.impact)}</span></div></li>`;
+              }
+              html += '</ol>';
+            }
+          }
+
+          if (!articles.length) {
+            html += '<p class="source-tag">No data available</p>';
+          }
+          html += '</article>';
+        }
+        html += '</section>';
+        return html;
+      }
+
+      function parseSummary(raw) {
+        const summary = (raw.match(/\[SUMMARY START\]([\s\S]*?)\[SUMMARY END\]/i) || [])[1]?.trim() || '';
+        const headlines = [];
+        const hlBlock = raw.split(/Top Bond-Relevant Headlines:/i)[1] || '';
+        const items = hlBlock.split(/\n\s*\d+\.\s+/).filter(Boolean);
+        for (const item of items) {
+          const lines = item.trim().split('\n').filter(Boolean);
+          const title = lines[0]?.replace(/^<|>$/g, '').trim() || '';
+          const impact = lines.slice(1).join(' ').replace(/^<|>$/g, '').trim();
+          if (title) headlines.push({ title, impact });
+        }
+        return { summary, headlines };
+      }
+
+      function esc(s) {
+        const d = document.createElement('div');
+        d.textContent = s || '';
+        return d.innerHTML;
+      }
+    })();
+  </script>
+</body>
+</html>
