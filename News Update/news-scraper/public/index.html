@@ -261,9 +261,10 @@
 
     // Numeric ISO → ISO_A3 for tracked LATAM countries
     // To add a new country: add its numeric code here + an entry in data.json
+    // Keys cover both padded ("032") and unpadded ("32") formats
     const ISO_NUM = {
-      '032':'ARG','076':'BRA','152':'CHL','170':'COL',
-      '214':'DOM','218':'ECU','484':'MEX','591':'PAN','222':'SLV'
+      '32':'ARG','032':'ARG', '76':'BRA','076':'BRA', '152':'CHL',
+      '170':'COL', '214':'DOM', '218':'ECU', '484':'MEX', '591':'PAN', '222':'SLV'
     };
 
     try {
@@ -279,15 +280,16 @@
       tracked = new Map();
     }
 
-    // ── Load world boundaries (TopoJSON ~300KB from jsDelivr CDN) ──
+    // ── Load world boundaries (TopoJSON 50m ~1MB from jsDelivr CDN) ──
     let geoFeatures = [];
     try {
-      const topoRes = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json');
+      const topoRes = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json');
       const topo = await topoRes.json();
       const world = topojson.feature(topo, topo.objects.countries);
       geoFeatures = world.features.map(f => {
-        // Inject ISO_A3 from numeric ID for tracked countries
-        f.properties.ISO_A3 = ISO_NUM[f.id] || f.id;
+        // Inject ISO_A3 from numeric ID; handle both string and number IDs
+        const key = String(f.id);
+        f.properties.ISO_A3 = ISO_NUM[key] || key;
         return f;
       });
     } catch (e) {
