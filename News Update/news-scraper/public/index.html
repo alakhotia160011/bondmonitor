@@ -283,14 +283,13 @@
       console.warn('data.json not loaded:', e);
     }
 
-    // ── Load world boundaries (TopoJSON 50m ~1MB from jsDelivr CDN) ──
+    // ── Load world boundaries (TopoJSON 110m ~300KB — fast + lightweight) ──
     let geoFeatures = [];
     try {
-      const topoRes = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json');
+      const topoRes = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json');
       const topo = await topoRes.json();
       const world = topojson.feature(topo, topo.objects.countries);
       geoFeatures = world.features.map(f => {
-        // Inject ISO_A3 from numeric ID; handle both string and number IDs
         const key = String(f.id);
         f.properties.ISO_A3 = ISO_NUM[key] || key;
         return f;
@@ -301,6 +300,7 @@
 
     // ── Create globe ──
     const container = document.getElementById('globe-container');
+    let hovered = null;
 
     globe = Globe()
       .backgroundColor('#05050e')
@@ -310,18 +310,14 @@
       .atmosphereAltitude(0.12)
       // ── Country polygons ──
       .polygonsData(geoFeatures)
-      .polygonCapColor(f => polyColor(f, false))
+      .polygonCapColor(f => polyColor(f, f === hovered))
       .polygonSideColor(() => 'rgba(0,0,0,0)')
-      .polygonStrokeColor(() => 'rgba(255,255,255,0.08)')
-      .polygonAltitude(f => tracked.has(f.properties.ISO_A3) ? 0.008 : 0.003)
-      .polygonsTransitionDuration(300)
+      .polygonStrokeColor(() => 'rgba(255,255,255,0.06)')
+      .polygonAltitude(0.005)
+      .polygonsTransitionDuration(0)
       .onPolygonHover(feat => {
-        globe
-          .polygonCapColor(f => polyColor(f, f === feat))
-          .polygonAltitude(f => {
-            if (f === feat) return 0.02;
-            return tracked.has(f.properties.ISO_A3) ? 0.008 : 0.003;
-          });
+        hovered = feat;
+        globe.polygonCapColor(globe.polygonCapColor());
         container.style.cursor = feat ? 'pointer' : 'default';
       })
       .onPolygonClick(feat => {
@@ -331,17 +327,13 @@
         globe.pointOfView({ lat: c.lat, lng: c.lng, altitude: 1.5 }, 1000);
         showPanel(iso, feat.properties.name || iso);
       })
-      // ── Capital dots (tracked countries only) ──
-      .htmlElementsData(bondData.countries)
-      .htmlLat(d => d.capital.lat)
-      .htmlLng(d => d.capital.lng)
-      .htmlAltitude(0.012)
-      .htmlElement(d => {
-        const el = document.createElement('div');
-        el.className = 'capital-dot';
-        el.style.setProperty('--dot-color', SIGNAL_COLORS[d.signal] || '#38bdf8');
-        return el;
-      })
+      // ── Capital dots (WebGL points — much faster than HTML elements) ──
+      .pointsData(bondData.countries)
+      .pointLat(d => d.capital.lat)
+      .pointLng(d => d.capital.lng)
+      .pointColor(d => SIGNAL_COLORS[d.signal] || '#38bdf8')
+      .pointRadius(0.4)
+      .pointAltitude(0.01)
       (container);
 
     // ── Grid lines + star field (only if THREE loaded) ──
