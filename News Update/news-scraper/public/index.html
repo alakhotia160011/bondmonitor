@@ -267,17 +267,20 @@
       '170':'COL', '214':'DOM', '218':'ECU', '484':'MEX', '591':'PAN', '222':'SLV'
     };
 
+    // Declare at IIFE scope so all helpers can access them
+    let bondData = { timestamp: new Date().toISOString(), countries: [] };
+    let tracked = new Map();
+    let globe;
+    const panel = document.getElementById('panel');
+
     try {
 
     // ── Load data ──
-    let bondData, tracked;
     try {
       bondData = await (await fetch('data.json')).json();
       tracked = new Map(bondData.countries.map(c => [c.iso_a3, c]));
     } catch (e) {
       console.warn('data.json not loaded:', e);
-      bondData = { timestamp: new Date().toISOString(), countries: [] };
-      tracked = new Map();
     }
 
     // ── Load world boundaries (TopoJSON 50m ~1MB from jsDelivr CDN) ──
@@ -299,7 +302,7 @@
     // ── Create globe ──
     const container = document.getElementById('globe-container');
 
-    const globe = Globe()
+    globe = Globe()
       .backgroundColor('#05050e')
       .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
       .showAtmosphere(true)
@@ -479,8 +482,6 @@
     // ──────────────────────────────────────
     //  SIDE PANEL
     // ──────────────────────────────────────
-
-    const panel = document.getElementById('panel');
 
     function showPanel(iso, name) {
       const c = tracked.get(iso);
