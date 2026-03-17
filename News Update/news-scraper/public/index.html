@@ -76,10 +76,12 @@
     .refresh-link {
       font-family: var(--mono); font-size: 0.6rem; font-weight: 500;
       color: var(--green); letter-spacing: 0.08em; text-transform: uppercase;
-      text-decoration: none; border: 1px solid rgba(0,232,122,0.2);
-      padding: 3px 8px; border-radius: 3px; transition: background 0.2s;
+      background: none; border: 1px solid rgba(0,232,122,0.2);
+      padding: 3px 8px; border-radius: 3px; cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
     }
     .refresh-link:hover { background: rgba(0,232,122,0.1); }
+    .refresh-link:disabled { opacity: 0.5; cursor: default; }
 
     /* ── Globe ── */
     #globe-container { position: fixed; top: 52px; left: 0; right: 0; bottom: 36px; }
@@ -230,7 +232,7 @@
       <span class="tag" id="country-count">9 COUNTRIES</span>
       <span class="tag-sep">|</span>
       <span class="tag">LATAM SOVEREIGN</span>
-      <a class="refresh-link" href="https://github.com/alakhotia160011/bondmonitor/actions/workflows/refresh.yml" target="_blank" rel="noopener">&#x21bb; REFRESH</a>
+      <button class="refresh-link" id="refresh-btn" onclick="triggerRefresh()">&#x21bb; REFRESH</button>
     </div>
   </nav>
 
@@ -432,6 +434,37 @@
     }
     setInterval(updateClock, 1000);
     updateClock();
+
+    // ── Refresh button ──
+    window.triggerRefresh = async function () {
+      const btn = document.getElementById('refresh-btn');
+      btn.textContent = '⏳ TRIGGERING...';
+      btn.disabled = true;
+      try {
+        const res = await fetch('/api/refresh', { method: 'POST' });
+        const data = await res.json();
+        if (res.ok) {
+          btn.textContent = '✓ TRIGGERED';
+          btn.style.borderColor = '#00e87a';
+          setTimeout(() => {
+            btn.textContent = '↻ REFRESH';
+            btn.disabled = false;
+            btn.style.borderColor = '';
+          }, 5000);
+        } else {
+          throw new Error(data.error || 'Failed');
+        }
+      } catch (e) {
+        btn.textContent = '✗ FAILED';
+        btn.style.borderColor = '#ef4444';
+        console.error('Refresh error:', e);
+        setTimeout(() => {
+          btn.textContent = '↻ REFRESH';
+          btn.disabled = false;
+          btn.style.borderColor = '';
+        }, 3000);
+      }
+    };
 
     // ──────────────────────────────────────
     //  HELPERS
