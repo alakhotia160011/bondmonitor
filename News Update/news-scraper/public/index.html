@@ -268,9 +268,9 @@
     }
 
     // ── Load GeoJSON ──
-    // Using datasets/geo-countries for full global coverage (~23MB, cached after first load).
-    // For faster loads, swap with Natural Earth 110m: https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_admin_0_countries.geojson
-    const GEOJSON_URL = 'https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson';
+    // Natural Earth 110m (~700KB) — fast loading, full global coverage.
+    // For higher resolution borders, swap with: https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson (~23MB)
+    const GEOJSON_URL = 'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_admin_0_countries.geojson';
     let geoFeatures = [];
     try {
       const geo = await (await fetch(GEOJSON_URL)).json();
