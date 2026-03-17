@@ -249,12 +249,24 @@
   </div>
 
   <script src="//unpkg.com/three@0.160.0/build/three.min.js"></script>
-  <script src="//unpkg.com/globe.gl@2.31.1/dist/globe.gl.min.js"></script>
+  <script src="//unpkg.com/topojson-client@3"></script>
+  <script src="//unpkg.com/globe.gl"></script>
   <script>
   (async function () {
+    const loader = document.getElementById('loader');
+
     // ── Color helpers ──
     const SIGNAL_COLORS = { BUY: '#00e87a', WATCH: '#f59e0b', AVOID: '#ef4444', NEUTRAL: '#38bdf8' };
     const CAT_COLORS = { IG: '#00e87a', HY: '#f59e0b' };
+
+    // Numeric ISO → ISO_A3 for tracked LATAM countries
+    // To add a new country: add its numeric code here + an entry in data.json
+    const ISO_NUM = {
+      '032':'ARG','076':'BRA','152':'CHL','170':'COL',
+      '214':'DOM','218':'ECU','484':'MEX','591':'PAN','222':'SLV'
+    };
+
+    try {
 
     // ── Load data ──
     let bondData, tracked;
@@ -267,19 +279,19 @@
       tracked = new Map();
     }
 
-    // ── Load GeoJSON ──
-    // Natural Earth 110m (~700KB) — fast loading, full global coverage.
-    // For higher resolution borders, swap with: https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson (~23MB)
-    const GEOJSON_URL = 'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_admin_0_countries.geojson';
+    // ── Load world boundaries (TopoJSON ~300KB from jsDelivr CDN) ──
     let geoFeatures = [];
     try {
-      const geo = await (await fetch(GEOJSON_URL)).json();
-      geoFeatures = geo.features.filter(f => {
-        const iso = f.properties.ISO_A3;
-        return iso && iso !== '-99';
+      const topoRes = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json');
+      const topo = await topoRes.json();
+      const world = topojson.feature(topo, topo.objects.countries);
+      geoFeatures = world.features.map(f => {
+        // Inject ISO_A3 from numeric ID for tracked countries
+        f.properties.ISO_A3 = ISO_NUM[f.id] || f.id;
+        return f;
       });
     } catch (e) {
-      console.error('GeoJSON failed to load:', e);
+      console.error('TopoJSON failed:', e);
     }
 
     // ── Create globe ──
@@ -287,6 +299,7 @@
 
     const globe = Globe()
       .backgroundColor('#05050e')
+      .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
       .showAtmosphere(true)
       .atmosphereColor('#00e87a')
       .atmosphereAltitude(0.12)
@@ -311,7 +324,7 @@
         const iso = feat.properties.ISO_A3;
         const c = getCentroid(feat);
         globe.pointOfView({ lat: c.lat, lng: c.lng, altitude: 1.5 }, 1000);
-        showPanel(iso, feat.properties.ADMIN || feat.properties.NAME || iso);
+        showPanel(iso, feat.properties.name || iso);
       })
       // ── Capital dots (tracked countries only) ──
       .htmlElementsData(bondData.countries)
@@ -326,52 +339,46 @@
       })
       (container);
 
-    // ── Dark globe material (remove default Earth texture) ──
-    const mat = globe.globeMaterial();
-    mat.color = new THREE.Color(0x070720);
-    mat.emissive = new THREE.Color(0x020210);
-    mat.shininess = 5;
-    // Remove blue marble texture if present
-    if (mat.map) { mat.map = null; mat.needsUpdate = true; }
-
-    // ── Grid lines (lat/lng every 15°) ──
-    const gridMat = new THREE.LineBasicMaterial({ color: 0x00e87a, transparent: true, opacity: 0.06 });
-    const R = 100.3;
-    for (let lat = -75; lat <= 75; lat += 15) {
-      const phi = (90 - lat) * Math.PI / 180;
-      const r = R * Math.sin(phi), y = R * Math.cos(phi);
-      const pts = [];
-      for (let i = 0; i <= 72; i++) {
-        const t = (i / 72) * Math.PI * 2;
-        pts.push(new THREE.Vector3(r * Math.cos(t), y, r * Math.sin(t)));
+    // ── Grid lines + star field (only if THREE loaded) ──
+    if (typeof THREE !== 'undefined') {
+      const gridMat = new THREE.LineBasicMaterial({ color: 0x00e87a, transparent: true, opacity: 0.06 });
+      const R = 100.3;
+      for (let lat = -75; lat <= 75; lat += 15) {
+        const phi = (90 - lat) * Math.PI / 180;
+        const r = R * Math.sin(phi), y = R * Math.cos(phi);
+        const pts = [];
+        for (let i = 0; i <= 72; i++) {
+          const t = (i / 72) * Math.PI * 2;
+          pts.push(new THREE.Vector3(r * Math.cos(t), y, r * Math.sin(t)));
+        }
+        globe.scene().add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), gridMat));
       }
-      globe.scene().add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), gridMat));
-    }
-    for (let lng = 0; lng < 360; lng += 15) {
-      const t = lng * Math.PI / 180;
-      const pts = [];
-      for (let i = 0; i <= 72; i++) {
-        const phi = (i / 72) * Math.PI;
-        pts.push(new THREE.Vector3(
-          R * Math.sin(phi) * Math.cos(t), R * Math.cos(phi), R * Math.sin(phi) * Math.sin(t)
-        ));
+      for (let lng = 0; lng < 360; lng += 15) {
+        const t = lng * Math.PI / 180;
+        const pts = [];
+        for (let i = 0; i <= 72; i++) {
+          const phi = (i / 72) * Math.PI;
+          pts.push(new THREE.Vector3(
+            R * Math.sin(phi) * Math.cos(t), R * Math.cos(phi), R * Math.sin(phi) * Math.sin(t)
+          ));
+        }
+        globe.scene().add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), gridMat));
       }
-      globe.scene().add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), gridMat));
-    }
 
-    // ── Star field ──
-    const starGeo = new THREE.BufferGeometry();
-    const starPos = [];
-    for (let i = 0; i < 2500; i++) {
-      const r = 400 + Math.random() * 800;
-      const t = Math.random() * Math.PI * 2;
-      const p = Math.random() * Math.PI;
-      starPos.push(r*Math.sin(p)*Math.cos(t), r*Math.sin(p)*Math.sin(t), r*Math.cos(p));
+      // Stars
+      const starGeo = new THREE.BufferGeometry();
+      const starPos = [];
+      for (let i = 0; i < 2500; i++) {
+        const r = 400 + Math.random() * 800;
+        const t = Math.random() * Math.PI * 2;
+        const p = Math.random() * Math.PI;
+        starPos.push(r*Math.sin(p)*Math.cos(t), r*Math.sin(p)*Math.sin(t), r*Math.cos(p));
+      }
+      starGeo.setAttribute('position', new THREE.Float32BufferAttribute(starPos, 3));
+      globe.scene().add(new THREE.Points(starGeo,
+        new THREE.PointsMaterial({ color: 0xffffff, size: 0.6, transparent: true, opacity: 0.5 })
+      ));
     }
-    starGeo.setAttribute('position', new THREE.Float32BufferAttribute(starPos, 3));
-    globe.scene().add(new THREE.Points(starGeo,
-      new THREE.PointsMaterial({ color: 0xffffff, size: 0.6, transparent: true, opacity: 0.5 })
-    ));
 
     // ── Auto-rotate ──
     const controls = globe.controls();
@@ -401,16 +408,6 @@
       globe.height(container.clientHeight);
     });
 
-    // ── Hide loader ──
-    setTimeout(() => document.getElementById('loader').classList.add('hidden'), 800);
-
-    // ── UTC clock ──
-    function updateClock() {
-      document.getElementById('clock').textContent = new Date().toISOString().slice(11, 19) + ' UTC';
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
-
     // ── Ticker ──
     const tickerEl = document.getElementById('ticker-content');
     if (bondData.countries.length) {
@@ -419,12 +416,25 @@
           `<span class="ticker-item"><span class="ticker-tag" style="color:${SIGNAL_COLORS[c.signal] || '#38bdf8'}">${esc(c.code)}</span>${esc(h)}</span>`
         )
       );
-      // Duplicate for seamless loop
       tickerEl.innerHTML = items.join('') + items.join('');
     }
 
     // ── Country count ──
     document.getElementById('country-count').textContent = bondData.countries.length + ' COUNTRIES';
+
+    } catch (err) {
+      console.error('Globe init error:', err);
+    } finally {
+      // ALWAYS hide loader, even on error
+      setTimeout(() => loader.classList.add('hidden'), 600);
+    }
+
+    // ── UTC clock (runs regardless) ──
+    function updateClock() {
+      document.getElementById('clock').textContent = new Date().toISOString().slice(11, 19) + ' UTC';
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
 
     // ──────────────────────────────────────
     //  HELPERS
@@ -434,10 +444,7 @@
       const iso = feat.properties.ISO_A3;
       const c = tracked.get(iso);
       if (isHovered) {
-        if (c) {
-          const sc = SIGNAL_COLORS[c.signal] || '#38bdf8';
-          return hexToRgba(sc, 0.35);
-        }
+        if (c) return hexToRgba(SIGNAL_COLORS[c.signal] || '#38bdf8', 0.35);
         return 'rgba(255,255,255,0.15)';
       }
       if (c) return hexToRgba(CAT_COLORS[c.category] || '#38bdf8', 0.12);
@@ -549,11 +556,10 @@
 
     // ──────────────────────────────────────
     //  TO ADD A NEW COUNTRY:
-    //  Just add an object to the "countries" array in data.json
-    //  with the same fields (country, code, iso_a3, rating, etc).
-    //  The globe already renders all ~195 countries from GeoJSON.
-    //  Tracked countries (those in data.json) get richer colors,
-    //  pulsing capital dots, and full detail panels.
+    //  1. Add its numeric ISO code to the ISO_NUM map above
+    //  2. Add an object to the "countries" array in data.json
+    //  The globe already renders all ~195 countries.
+    //  Tracked ones get richer colors, pulsing dots, and full panels.
     // ──────────────────────────────────────
 
   })();
