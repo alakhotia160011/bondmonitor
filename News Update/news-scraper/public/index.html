@@ -312,9 +312,16 @@
       .polygonsData(geoFeatures)
       .polygonCapColor(f => polyColor(f, f === hovered))
       .polygonSideColor(() => 'rgba(0,0,0,0)')
-      .polygonStrokeColor(() => 'rgba(255,255,255,0.06)')
+      .polygonStrokeColor(() => 'rgba(255,255,255,0.18)')
       .polygonAltitude(0.005)
       .polygonsTransitionDuration(0)
+      .polygonLabel(f => {
+        const iso = f.properties.ISO_A3;
+        const c = tracked.get(iso);
+        const name = c ? c.country : (f.properties.name || iso);
+        const badge = c ? `<span style="color:${CAT_COLORS[c.category]};margin-left:6px;font-size:0.7rem">${c.rating}</span>` : '';
+        return `<div style="font-family:'Syne',sans-serif;background:rgba(10,10,26,0.92);color:#dde4f0;padding:6px 12px;border-radius:4px;font-size:0.85rem;border:1px solid rgba(255,255,255,0.1);pointer-events:none">${name}${badge}</div>`;
+      })
       .onPolygonHover(feat => {
         hovered = feat;
         globe.polygonCapColor(globe.polygonCapColor());
@@ -327,13 +334,6 @@
         globe.pointOfView({ lat: c.lat, lng: c.lng, altitude: 1.5 }, 1000);
         showPanel(iso, feat.properties.name || iso);
       })
-      // ── Capital dots (WebGL points — much faster than HTML elements) ──
-      .pointsData(bondData.countries)
-      .pointLat(d => d.capital.lat)
-      .pointLng(d => d.capital.lng)
-      .pointColor(d => SIGNAL_COLORS[d.signal] || '#38bdf8')
-      .pointRadius(0.4)
-      .pointAltitude(0.01)
       (container);
 
     // ── Grid lines + star field (only if THREE loaded) ──
