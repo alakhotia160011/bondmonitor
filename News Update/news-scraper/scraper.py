@@ -3,8 +3,11 @@ import os
 import re
 from pathlib import Path
 from datetime import datetime
+from urllib.parse import urljoin
 
 import anthropic
+import requests
+from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 from langchain_community.document_loaders import WebBaseLoader
 
@@ -65,6 +68,30 @@ SOURCES = {
 }
 
 
+def extract_article_links(base_url: str) -> list[dict]:
+    """Extract article links from a news site's front page."""
+    try:
+        resp = requests.get(base_url, timeout=15, headers={
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) BondMonitor/1.0"
+        })
+        soup = BeautifulSoup(resp.text, "html.parser")
+        links = []
+        seen = set()
+        for a in soup.find_all("a", href=True):
+            href = a["href"].strip()
+            url = urljoin(base_url, href)
+            text = a.get_text(strip=True)
+            # Filter: must have meaningful text, be an article link, not a nav/category link
+            if (len(text) > 25 and url.startswith("http") and url not in seen
+                    and not any(x in url for x in ["#", "javascript:", "login", "signup", "subscribe"])):
+                seen.add(url)
+                links.append({"text": text[:200], "url": url})
+        return links[:50]  # Top 50 links from the page
+    except Exception as e:
+        print(f"  Error extracting links: {e}")
+        return []
+
+
 def parse_response(raw: str) -> dict:
     """Parse Claude's structured response into summary + headlines list."""
     m = re.search(r'\[SUMMARY START\](.*?)\[SUMMARY END\]', raw, re.DOTALL)
@@ -78,9 +105,16 @@ def parse_response(raw: str) -> dict:
             item = item.strip()
             if not item:
                 continue
-            first_line = item.split('\n')[0].strip().strip('<>').strip('*')
-            if first_line:
-                headlines.append(first_line)
+            lines = item.split('\n')
+            title = lines[0].strip().strip('<>').strip('*')
+            # Extract URL if Claude included one (format: [URL: ...] or URL: ...)
+            url = ""
+            for line in lines:
+                url_match = re.search(r'\[?URL:\s*(https?://\S+)\]?', line)
+                if url_match:
+                    url = url_match.group(1).rstrip(']').rstrip(')')
+            if title:
+                headlines.append({"text": title, "url": url})
 
     return {"summary": summary, "headlines": headlines[:5]}
 
@@ -118,6 +152,13 @@ def scrape_news():
         parsed = {"summary": "", "headlines": []}
 
         try:
+            # Step 1: Extract article links from front page
+            article_links = extract_article_links(source["url"])
+            links_text = "\n".join(
+                f'- "{l["text"]}" → {l["url"]}' for l in article_links
+            ) if article_links else "(no links extracted)"
+
+            # Step 2: Get page content for context
             loader = WebBaseLoader(source["url"])
             docs = loader.load()
             content = docs[0].page_content if docs else None
@@ -125,7 +166,7 @@ def scrape_news():
             if content:
                 response = client.messages.create(
                     model="claude-sonnet-4-20250514",
-                    max_tokens=1024,
+                    max_tokens=1500,
                     system="You are a financial analyst focused on sovereign bond markets. Extract the most relevant local news that could impact government bond prices. ALL output must be in English — translate any non-English headlines.",
                     messages=[{
                         "role": "user",
@@ -138,9 +179,13 @@ IMPORTANT:
 - Rank headlines in descending order of importance to bond markets (most impactful first)
 - Focus on: fiscal policy, debt, central bank actions, GDP/inflation, political stability, trade
 - Only include recent/current news, not old stories
+- For each headline, include the URL of the original article from the links list below
 
-Content:
-{content[:15000]}
+Page content:
+{content[:12000]}
+
+Available article links from this page:
+{links_text[:3000]}
 
 Format your response with exactly these markers:
 [SUMMARY START]
@@ -149,9 +194,11 @@ Format your response with exactly these markers:
 
 Top Bond-Relevant Headlines:
 1. <most impactful headline in English>
+[URL: <matching article URL from the links list>]
 <impact explanation>
 
 2. <second most impactful headline in English>
+[URL: <matching article URL from the links list>]
 <impact explanation>
 
 (continue for all 5 headlines)"""

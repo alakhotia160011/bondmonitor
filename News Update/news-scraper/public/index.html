@@ -164,6 +164,13 @@
       font-size: 0.9rem; color: var(--green); min-width: 1rem;
     }
 
+    .headline-link {
+      color: var(--text); text-decoration: none; transition: color 0.2s;
+    }
+    .headline-link:hover { color: var(--green); }
+    .link-arrow { font-size: 0.7rem; opacity: 0.4; margin-left: 2px; }
+    .headline-link:hover .link-arrow { opacity: 1; }
+
     .source-link {
       display: inline-block; font-family: var(--mono); font-size: 0.7rem;
       font-weight: 600; color: var(--green); text-decoration: none;
@@ -422,9 +429,10 @@
     const tickerEl = document.getElementById('ticker-content');
     if (bondData.countries.length) {
       const items = bondData.countries.flatMap(c =>
-        c.headlines.map(h =>
-          `<span class="ticker-item"><span class="ticker-tag" style="color:${SIGNAL_COLORS[c.signal] || '#38bdf8'}">${esc(c.code)}</span>${esc(h)}</span>`
-        )
+        c.headlines.map(h => {
+          const text = typeof h === 'string' ? h : (h.text || '');
+          return `<span class="ticker-item"><span class="ticker-tag" style="color:${SIGNAL_COLORS[c.signal] || '#38bdf8'}">${esc(c.code)}</span>${esc(text)}</span>`;
+        })
       );
       tickerEl.innerHTML = items.join('') + items.join('');
     }
@@ -555,7 +563,13 @@
         <p class="panel-summary">${esc(c.summary)}</p>
         <div class="panel-divider"></div>
         <h3 class="panel-section-title">Top Headlines</h3>
-        <ol class="panel-headlines">${c.headlines.map(h => `<li>${esc(h)}</li>`).join('')}</ol>
+        <ol class="panel-headlines">${c.headlines.map(h => {
+          if (typeof h === 'object' && h.url) {
+            return `<li><a href="${esc(h.url)}" target="_blank" rel="noopener" class="headline-link">${esc(h.text)} <span class="link-arrow">&#x2197;</span></a></li>`;
+          }
+          const text = typeof h === 'string' ? h : (h.text || '');
+          return `<li>${esc(text)}</li>`;
+        }).join('')}</ol>
         ${c.source_name ? `<div class="panel-divider"></div><a class="source-link" href="${esc(c.source_url)}" target="_blank" rel="noopener">&#x2197; Read more at ${esc(c.source_name)}</a>` : ''}
       `;
     }
