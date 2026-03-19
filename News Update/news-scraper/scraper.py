@@ -8,6 +8,17 @@ import anthropic
 from dotenv import load_dotenv
 from langchain_community.document_loaders import WebBaseLoader
 
+# ── CDS Spreads (10-year, basis points) ──
+# Source: Damodaran/NYU Stern, Dec 31 2025
+# Countries with "NA" use rating-implied default spreads instead
+CDS_SPREADS = {
+    "MEX": 166, "CHL": 87,  "BRA": 235, "PAN": 222,
+    "PER": 126, "URY": 77,  "ECU": 567, "SLV": 340,
+    "ARG": 1800, "DOM": 280, "COL": 334, "PRY": 250,
+    "BOL": 600, "VEN": 929, "CRI": 175, "GTM": 200,
+    "HND": 350,
+}
+
 
 # ── Country metadata ──
 # To add a new country: add an entry here + a news source in SOURCES below.
@@ -151,13 +162,31 @@ Top Bond-Relevant Headlines:
             print(f"  Error: {e}")
 
         prev = prev_data.get(meta["iso_a3"], {})
+        current_spread = CDS_SPREADS.get(meta["iso_a3"], 0)
+        prev_spread = prev.get("spread", current_spread)
+        spread_change = current_spread - prev_spread
+
+        # Build spread history (rolling 30 days)
+        spread_history = prev.get("spread_history", [])
+        if current_spread:
+            spread_history = (spread_history + [current_spread])[-30:]
+
+        # Auto-assign signal based on spread level and change
+        if current_spread >= 800:
+            signal = "AVOID"
+        elif spread_change <= -10:
+            signal = "BUY"
+        elif spread_change >= 10:
+            signal = "WATCH"
+        else:
+            signal = prev.get("signal", "NEUTRAL")
 
         entry = {
             **meta,
-            "spread": prev.get("spread", 0),
-            "spread_change": prev.get("spread_change", 0),
-            "signal": prev.get("signal", "NEUTRAL"),
-            "spread_history": prev.get("spread_history", []),
+            "spread": current_spread,
+            "spread_change": spread_change,
+            "signal": signal,
+            "spread_history": spread_history,
             "summary": parsed["summary"],
             "headlines": parsed["headlines"],
         }
