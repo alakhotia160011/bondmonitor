@@ -164,6 +164,15 @@
       font-size: 0.9rem; color: var(--green); min-width: 1rem;
     }
 
+    .source-link {
+      display: inline-block; font-family: var(--mono); font-size: 0.7rem;
+      font-weight: 600; color: var(--green); text-decoration: none;
+      letter-spacing: 0.05em; padding: 8px 14px; border: 1px solid rgba(0,232,122,0.2);
+      border-radius: 4px; transition: background 0.2s;
+      margin-top: 0.25rem;
+    }
+    .source-link:hover { background: rgba(0,232,122,0.1); }
+
     /* Untracked panel */
     .untracked-msg { text-align: center; padding: 2rem 0; }
     .untracked-msg p { font-family: var(--sans); font-size: 0.95rem; color: var(--text); margin-bottom: 0.5rem; }
@@ -547,6 +556,7 @@
         <div class="panel-divider"></div>
         <h3 class="panel-section-title">Top Headlines</h3>
         <ol class="panel-headlines">${c.headlines.map(h => `<li>${esc(h)}</li>`).join('')}</ol>
+        ${c.source_name ? `<div class="panel-divider"></div><a class="source-link" href="${esc(c.source_url)}" target="_blank" rel="noopener">&#x2197; Read more at ${esc(c.source_name)}</a>` : ''}
       `;
     }
 

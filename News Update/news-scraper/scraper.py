@@ -189,6 +189,8 @@ Top Bond-Relevant Headlines:
             "spread_history": spread_history,
             "summary": parsed["summary"],
             "headlines": parsed["headlines"],
+            "source_name": source["name"],
+            "source_url": source["url"],
         }
         results.append(entry)
         print(f"  Got {len(parsed['headlines'])} headlines")
