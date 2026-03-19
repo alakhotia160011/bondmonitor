@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-17T23:35:41.041098",
+  "timestamp": "2026-03-18T22:51:37.810336",
   "countries": [
     {
       "country": "Mexico",
@@ -13,11 +13,10 @@
         "lat": 19.43,
         "lng": -99.13
       },
-      "spread": 145,
-      "spread_change": 2,
-      "signal": "NEUTRAL",
+      "spread": 166,
+      "spread_change": 21,
+      "signal": "WATCH",
       "spread_history": [
-        138,
         140,
         142,
         139,
@@ -46,15 +45,16 @@
         143,
         142,
         144,
-        145
+        145,
+        166
       ],
-      "summary": "Mexico's government is advancing Plan B electoral reforms while reducing pharmaceutical debt from 19 billion to 5 billion pesos during AMLO's administration. The country faces ongoing security challenges with military confrontations against drug cartels increasing 26%, alongside infrastructure incidents including a deadly Pemex refinery fire.",
+      "summary": "Mexico faces mixed economic signals with Plan B electoral reforms advancing amid political tensions, while oil prices near $110/barrel due to Middle East conflicts boost energy sector prospects. The government maintains diplomatic coordination with the US on security matters while senators pledge financial support to Cuba, reflecting ongoing regional political alignments.",
       "headlines": [
-        "Government reduces debt with pharmaceutical companies during AMLO administration; decreases from 19 billion to 5 billion pesos: Eduardo Clark",
-        "Fire at Dos Bocas leaves 5 dead: Pemex; assures incident is under control",
-        "Military confrontations against drug cartels increase 26%",
-        "Plan B proposes that Executive head can promote recall vote; initiative foresees exercise between 2027 and 2028",
-        "Pemex workers maintain sit-in on Marina Nacional; demand salary adjustment"
+        "Brent approaches $110 dollars; attacks on Iran's energy infrastructure elevate uncertainty",
+        "Plan B advances toward mega-election; includes self-campaign in revocation",
+        "US reports drop in fentanyl flow; attributes decline to pressure on Mexico border",
+        "Harfuch meets with Kash Patel, FBI director; highlights coordination between Mexico and US to detain priority targets",
+        "Morena senators agree to donate economic support to Cuba; \"we must send them oil, which is what they urgently need\": Noroña"
       ]
     },
     {
@@ -69,11 +69,10 @@
         "lat": -33.45,
         "lng": -70.67
       },
-      "spread": 85,
-      "spread_change": -3,
+      "spread": 87,
+      "spread_change": 2,
       "signal": "BUY",
       "spread_history": [
-        95,
         93,
         91,
         94,
@@ -102,15 +101,16 @@
         84,
         83,
         85,
-        85
+        85,
+        87
       ],
-      "summary": "Chile's new ultra-conservative President José Antonio Kast has taken office promising a \"Government of emergency\" focused on fiscal austerity, border security, and economic restructuring. Kast's administration signals a sharp rightward turn from the previous leftist government, with early moves including migration controls, fiscal audits, and plans to limit university fee waivers while collecting student debts.",
+      "summary": "Chile's new conservative President José Antonio Kast has taken office with an aggressive austerity agenda, demanding 3% spending cuts across ministries while implementing strict anti-immigration measures including border barriers with Peru. The government faces immediate challenges with fuel price increases and plans to limit university gratuity while collecting student debts backed by the state.",
       "headlines": [
-        "Kast seeks to limit university fee waivers and collect student debts from private banks guaranteed by the State",
-        "Kast announces 'National Reconstruction' project including temporary elimination of VAT on housing",
-        "Kast signs decrees for fiscal audit in his first hours in office",
-        "Kast: \"There really is no money\" - calls for help from Chileans in early days",
-        "Chile approaches US sphere of influence in critical minerals and rare earths race"
+        "Kast and his ministers, following Milei's path: \"There is no money\"",
+        "Fuel price increase, first test of fire for Kast",
+        "Kast seeks to limit university gratuity and collect student debts from private banks guaranteed by the State",
+        "Kast approaches Chile to US sphere of influence in the race for critical minerals and rare earths",
+        "Kast starts construction of a trench on the border with Peru to stop migration"
       ]
     },
     {
@@ -125,11 +125,10 @@
         "lat": -15.79,
         "lng": -47.88
       },
-      "spread": 195,
-      "spread_change": 5,
+      "spread": 235,
+      "spread_change": 40,
       "signal": "WATCH",
       "spread_history": [
-        178,
         180,
         182,
         179,
@@ -158,15 +157,16 @@
         194,
         192,
         194,
-        195
+        195,
+        235
       ],
-      "summary": "Brazil faces significant fiscal challenges as the government considers temporary ICMS tax reductions on diesel fuel while the BNDES plans new strategic credit lines amid global uncertainties. Political tensions continue with corruption investigations targeting lawmakers and former officials, while economic indicators show mixed signals with dollar weakness and moderate stock gains.",
+      "summary": "Brazil's Central Bank cuts the Selic rate to 14.75% but signals caution amid Middle East war pressures on inflation. Political tensions continue with Supreme Court ministers considering house arrest for former President Bolsonaro and ongoing corruption investigations affecting key institutions.",
       "headlines": [
-        "Finance Ministry calls states to discuss temporary reduction of ICMS tax on diesel fuel",
-        "BNDES plans new credit line to strengthen strategic sectors affected by wars",
-        "US eases sanctions on Venezuela to release more oil amid war with Iran",
-        "Dollar closes down with reduced global risk aversion and Stock Exchange has moderate gains after future interest rates reverse decline",
-        "Deputies convicted by STF for 'selling' amendments receive 5 to 6 years prison sentences unanimously"
+        "Central Bank reduces Selic to 14.75%, but preaches caution amid Middle East war",
+        "Lula rejects war and says diesel price increase is a 'disgrace' caused by 'the rich'",
+        "Treasury retreats and decides to withdraw bank bailout to unlock project on institutions in crisis",
+        "Supreme Court ministers see house arrest for Bolsonaro as protection for the Court; government evaluates measure as positive",
+        "Government evaluates going to court to contain diesel prices and expand ANTT power over freight rates"
       ]
     },
     {
@@ -181,11 +181,10 @@
         "lat": 8.98,
         "lng": -79.52
       },
-      "spread": 130,
-      "spread_change": 0,
-      "signal": "NEUTRAL",
+      "spread": 222,
+      "spread_change": 92,
+      "signal": "WATCH",
       "spread_history": [
-        128,
         130,
         129,
         131,
@@ -214,15 +213,16 @@
         130,
         131,
         129,
-        130
+        130,
+        222
       ],
-      "summary": "Panama's government is managing significant fiscal pressures, with the Ministry of Finance seeking $12 billion in financing to cover liquidity needs while authorizing $18.8 million for electrical grid stabilization in western regions. The country shows mixed economic signals with 4.4% GDP growth in 2025 and 8-10% increased Canal revenues, though political investigations and corruption cases continue to create uncertainty.",
+      "summary": "Panama's economy grew 4.4% in 2025 according to the Comptroller's office, while the government maintains access to up to $12 billion in financing capacity. The country faces ongoing infrastructure projects and energy cost pressures with recent fuel price increases affecting consumers.",
       "headlines": [
-        "MEF will manage financing of $12 billion to cover liquidity needs",
+        "MEF has open letter to request up to $12 billion",
         "Panamanian economy grew 4.4% in 2025",
-        "Canal registers 8% to 10% more revenue from increased ship traffic",
-        "Cabinet Council authorizes disbursement of $18.8 million for electrical stabilization of the West",
-        "Aaron Mizrachi must face trial in Odebrecht case for alleged money laundering"
+        "Blow to the wallet: gasoline and diesel prices rise",
+        "Deputies approve $1.2 million to Maritime Authority to review port concessions",
+        "Federal Reserve maintains rates unchanged amid global uncertainty"
       ]
     },
     {
@@ -237,17 +237,19 @@
         "lat": -12.05,
         "lng": -77.04
       },
-      "spread": 0,
-      "spread_change": 0,
-      "signal": "NEUTRAL",
-      "spread_history": [],
-      "summary": "Peru is experiencing significant political transition with Luis Arroyo Sánchez sworn in as new Prime Minister and Rodolfo Acuña as new Economy Minister, indicating potential policy shifts ahead of 2026 elections. The government announces a S/500 million injection for state oil company Petro-Perú, while 23 presidential candidates present economic proposals including tax exemptions and formalization incentives with elections approaching.",
+      "spread": 126,
+      "spread_change": 126,
+      "signal": "WATCH",
+      "spread_history": [
+        126
+      ],
+      "summary": "Peru faces continued fiscal pressures as state oil company Petro-Perú receives another S/500 million bailout, bringing total government rescues to S/18.388 billion. Political uncertainty persists with ongoing investigations into fugitive party leader Cerrón and cabinet changes following Minister Miralles' departure.",
       "headlines": [
-        "Luis Arroyo Sánchez sworn in as new Prime Minister",
-        "Rodolfo Acuña sworn in as new Economy Minister",
-        "Government announces S/500 million injection for state oil company Petro-Perú",
-        "23 presidential candidates present economic proposals including tax exemptions and formalization incentives",
-        "Carlos Álvarez proposes income tax exemption for small industries that formalize"
+        "Petro-Perú: New S/500 million rescue elevates bailout figure to S/18.388 billion",
+        "The Arroyo Cabinet: The story behind Miralles' fall and background of new ministers",
+        "Constitutional Court to investigate alleged irregularity in Vladimir Cerrón case processing",
+        "Government cancels general elections on April 12 in Middle East due to conflict",
+        "Dollar price in Peru on Thursday March 19: what is the exchange rate"
       ]
     },
     {
@@ -262,17 +264,19 @@
         "lat": -34.88,
         "lng": -56.16
       },
-      "spread": 0,
-      "spread_change": 0,
-      "signal": "NEUTRAL",
-      "spread_history": [],
-      "summary": "Uruguay's new government under President Yamandú Orsi and Finance Minister Gabriel Oddone is pushing new legislation and measures to improve competitiveness and attract investments. The country faces economic challenges with authorities focusing on fiscal anchoring strategies and risk management scenarios for the economy.",
+      "spread": 77,
+      "spread_change": 77,
+      "signal": "WATCH",
+      "spread_history": [
+        77
+      ],
+      "summary": "Uruguay is facing a severe water crisis with OSE announcing reduced water pressure in Montevideo due to drought conditions and depleting freshwater reserves. Political tensions are rising with debates over public enterprise definitions and corruption investigations affecting government stability.",
       "headlines": [
-        "New bill and measures for Uruguay to improve competitiveness, according to the MEF",
-        "What is the government's strategy for a crucial aspect of the Uruguayan economy that determines the fiscal \"anchor\"?",
-        "Materialized risks for Uruguay: the economy in a worse scenario",
-        "BPS: number of foreign workers in Uruguay exceeded 100,000 for the first time in history",
-        "Congress of Mayors approved 50% reduction in traffic fines considered \"less serious\""
+        "Water deficit: OSE announces that pumping pressure in Montevideo and metropolitan area will be reduced",
+        "Pit-Cnt rejects initiatives \"that put the definition of public enterprise at stake\" following Sánchez's proposal",
+        "Fiscal Sustainability: more fragile in the movie than in the photo",
+        "\"I know what the Argentine government thinks\": Orsi spoke after complaints from Entre Ríos governor about HIF Global",
+        "FA demands retraction from Botana for statements about drug trafficking and considers going to the Prosecutor's Office if he refuses"
       ]
     },
     {
@@ -287,11 +291,10 @@
         "lat": -0.18,
         "lng": -78.47
       },
-      "spread": 650,
-      "spread_change": 15,
-      "signal": "AVOID",
+      "spread": 567,
+      "spread_change": -83,
+      "signal": "BUY",
       "spread_history": [
-        580,
         590,
         600,
         595,
@@ -320,15 +323,16 @@
         645,
         650,
         660,
-        650
+        650,
+        567
       ],
-      "summary": "Ecuador continues implementing a nationwide curfew with over 380 arrests in two days as the government intensifies its fight against organized crime and drug trafficking. The country is advancing cooperation programs with the US and EU on security matters while managing weather-related agricultural concerns and maintaining fiscal operations through tax collection efforts.",
+      "summary": "Ecuador continues military operations against irregular groups while maintaining diplomatic tensions with Colombia over border security issues. The government has distributed over $1 billion in public banking credits and allocated $23 million for entrepreneurship and housing programs, showing active fiscal engagement.",
       "headlines": [
-        "Tax Authority sends over 600,000 notifications to taxpayers to correct errors in time and avoid fines",
-        "Company debuts in securities market placing 100% of $5 million bond issuance",
-        "Ecuador and European Union expand border security and cooperation program",
-        "Cooperation with US begins to show results: FBI agreement, trade accord, security operations mark agenda",
-        "Immediate measures for rains 'significantly reduced Fusarium dispersion potential'"
+        "Government has placed more than $1 billion in credits from public banking",
+        "In Cuenca, Daniel Noboa delivers $23 million for entrepreneurs and housing with \"Your House Miti Miti\" plan",
+        "Ecuador and Colombia will form commission to investigate complaint about explosive found in neighboring country",
+        "\"We have decided to attack irregular groups to protect our citizens,\" says Defense Minister about interventions in Podocarpus National Park",
+        "If you could not declare taxes on March 16, these are the new deadlines given by the SRI"
       ]
     },
     {
@@ -343,11 +347,10 @@
         "lat": 13.69,
         "lng": -89.19
       },
-      "spread": 400,
-      "spread_change": -8,
-      "signal": "WATCH",
+      "spread": 340,
+      "spread_change": -60,
+      "signal": "BUY",
       "spread_history": [
-        450,
         445,
         440,
         435,
@@ -376,15 +379,16 @@
         402,
         400,
         402,
-        400
+        400,
+        340
       ],
-      "summary": "El Salvador has approved constitutional reforms enabling life imprisonment for homicides, rape, and terrorism cases, as pushed by President Nayib Bukele's administration. The country continues to showcase its culture internationally while maintaining domestic infrastructure development and job creation initiatives.",
+      "summary": "El Salvador's news content shows limited current economic and political developments, with most coverage focusing on tourism, sports, and entertainment rather than fiscal or monetary policy matters.\nThe available headlines suggest a focus on domestic activities and infrastructure projects, but lack substantial information about government finances, debt management, or major economic policy changes.",
       "headlines": [
-        "El Salvador approves life imprisonment for murderers, rapists and terrorists",
-        "Central Bank of El Salvador (BCR) opens more than 300 job positions with available salaries and positions",
-        "New residential complex delivered to relocated families in San Salvador",
-        "Vamos party discards presidential candidacy and redefines strategy",
-        "El Salvador shines with culture and pupusas in New York"
+        "What does it mean that the United States suspends the law that reduces gasoline costs?",
+        "Perpetual imprisonment in El Salvador: 5 keys to understand the reform",
+        "Photos | This is how the Historic Center streets look due to revitalization works",
+        "FESFUT announces implementation of video referee starting from Apertura 2026",
+        "How to obtain free DUI in schools on March 19 and 20"
       ]
     },
     {
@@ -399,11 +403,10 @@
         "lat": -34.6,
         "lng": -58.38
       },
-      "spread": 1200,
-      "spread_change": -25,
-      "signal": "WATCH",
+      "spread": 1800,
+      "spread_change": 600,
+      "signal": "AVOID",
       "spread_history": [
-        1350,
         1340,
         1320,
         1330,
@@ -432,15 +435,16 @@
         1195,
         1200,
         1210,
-        1200
+        1200,
+        1800
       ],
-      "summary": "Argentina faces mounting political scandals as President Milei confronts corruption allegations involving a $5 million cryptocurrency scheme while his approval ratings face pressure from rising inflation. The opposition is intensifying judicial pressure on Milei's administration amid questions about government integrity and economic policy effectiveness.",
+      "summary": "Argentina faces mounting political scandals as President Milei is investigated for allegedly receiving $5 million to promote a cryptocurrency scam, while inflation accelerates to 33% annually, exceeding government forecasts. The opposition accuses the justice system of covering up for Milei while the president continues his international travels seeking foreign investment and aligning with right-wing leaders globally.",
       "headlines": [
-        "Inflation in Argentina exceeds Milei's forecasts and reaches 33% year-on-year",
-        "Argentine Justice finds alleged $5 million agreement for Milei to promote $Libra cryptocurrency scam",
-        "Major Argentine businessmen warn about critical industry situation and demand respect from Milei",
-        "Milei seeks investors in New York and calls Argentine businessmen thieves",
-        "Milei reinforces his alliance with the \"judicial party\" surrounded by scandals"
+        "Inflation in Argentina exceeds Milei's forecasts and reaches 33% annually",
+        "Argentine Justice finds alleged $5 million agreement for Milei to promote cryptocurrency scam $Libra",
+        "Opposition accuses Justice system of \"possible cover-up\" of Milei in $Libra case",
+        "Major Argentine businessmen warn about critical situation of industry and demand respect from Milei",
+        "Milei seeks investors in New York and calls Argentine businessmen thieves"
       ]
     },
     {
@@ -455,11 +459,10 @@
         "lat": 18.47,
         "lng": -69.9
       },
-      "spread": 250,
-      "spread_change": 1,
-      "signal": "NEUTRAL",
+      "spread": 280,
+      "spread_change": 30,
+      "signal": "WATCH",
       "spread_history": [
-        245,
         248,
         246,
         250,
@@ -488,15 +491,16 @@
         248,
         250,
         252,
-        250
+        250,
+        280
       ],
-      "summary": "The Dominican Republic appears to be managing routine government operations with ongoing infrastructure projects and educational reforms, while maintaining fiscal discipline through canceled procurement processes. The country faces some regional challenges from neighboring Haiti's instability and energy sector maintenance issues, but overall political and economic conditions appear stable.",
+      "summary": "The Dominican Republic shows mixed fiscal signals with government payment times to suppliers improving from 45 to 26 days, indicating better liquidity management. However, the country faces ongoing challenges with Haitian immigration operations and regional instability, while maintaining economic activity with tourism recognition and energy sector developments.",
       "headlines": [
-        "Inabie cancels tender for purchasing multivitamin gummies for students",
-        "Government presents spaceport project in Pedernales; company says it won't cost \"a penny\" to DR",
-        "Fed begins meeting on interest rates amid crossroads due to war with Iran",
-        "Oil prices rise again due to war in Iran",
-        "Banking sector will facilitate digital mortgage contracting starting in April"
+        "Government payments to suppliers drop from 45 to 26 days on average",
+        "Dollar falls to lowest level so far this year",
+        "Government plans to invest US$200 million in territorial planning program",
+        "Punta Cana Airport recognized as best in Central America and Caribbean for 2026",
+        "Electric vehicle incentives drive boom in the country"
       ]
     },
     {
@@ -511,11 +515,10 @@
         "lat": 4.71,
         "lng": -74.07
       },
-      "spread": 210,
-      "spread_change": 4,
+      "spread": 334,
+      "spread_change": 124,
       "signal": "WATCH",
       "spread_history": [
-        195,
         198,
         196,
         200,
@@ -544,15 +547,16 @@
         208,
         210,
         212,
-        210
+        210,
+        334
       ],
-      "summary": "Colombia faces significant fiscal challenges with its budget deficit reaching the highest level in three decades, while President Petro escalates diplomatic tensions with Ecuador over alleged bombing incidents. The country is also preparing for the 2026 presidential elections amid political polarization and ongoing security concerns.",
+      "summary": "Colombia faces a significant diplomatic crisis with Ecuador over a border bombing incident, with President Petro escalating tensions by claiming 27 bodies were found and demanding explanations. The government's financial plan acknowledges a delicate fiscal situation with the deficit reaching its highest level in three decades, raising concerns about fiscal sustainability.",
       "headlines": [
-        "Petro Government's Financial Plan Recognizes Delicate Fiscal Moment - Deficit Reaches Highest Level in Three Decades",
-        "President Petro Escalates Bombing Accusations Against Ecuador: \"There are 27 Charred Bodies and the Explanation is Not Credible\"",
-        "Mexico, Colombia and Brazil Call for \"Immediate Ceasefire\" in Iran War",
-        "Colombia and Venezuela Reschedule Bilateral Meeting for Late April in Maracaibo",
-        "2026 Presidential Election Campaigns Intensify as Candidates Announce Vice-Presidential Formulas"
+        "Petro Government's Financial Plan Acknowledges Delicate Fiscal Moment - Deficit Reaches Highest Level in Three Decades",
+        "Diplomatic Crisis Between Colombia and Ecuador Escalates Over Border Bombing - 250kg Unexploded Bomb Sparks International Incident",
+        "President Petro Escalates Accusations Against Ecuador, Claims 27 Charred Bodies Found and Announces Possession of Aerial Attack Recording",
+        "Independent Fiscal Body Considers Government's Deficit Reduction Plan \"Not Credible\"",
+        "Electoral Campaign Tensions Rise as Presidential Candidates Present Different Economic Visions Amid Growing Polarization"
       ]
     },
     {
@@ -567,17 +571,19 @@
         "lat": -25.26,
         "lng": -57.58
       },
-      "spread": 0,
-      "spread_change": 0,
-      "signal": "NEUTRAL",
-      "spread_history": [],
-      "summary": "Paraguay faces significant fiscal challenges as the Treasury acknowledges funding shortages despite stable economic conditions, with the Finance Minister announcing spending cuts to avoid financial crisis. Political tensions rise over pension system reforms and various domestic issues while regional security concerns persist with drug trafficking cases.",
+      "spread": 250,
+      "spread_change": 250,
+      "signal": "WATCH",
+      "spread_history": [
+        250
+      ],
+      "summary": "Paraguay's President Santiago Peña has signed into law a controversial public sector pension reform (fiscal box reform) that has faced strong criticism from various sectors including teachers. The government is also considering applying taxes to company reserves while economic agents predict higher inflation this month and expect the dollar to continue weakening.",
       "headlines": [
-        "\"The economy is well, the Treasury is bad,\" what Valdovinos admitted regarding lack of funds",
-        "Fiscal Fund: César Barreto qualifies reform as \"citizen defeat\"",
-        "\"War economy\" reveals lies and false achievements of traveler Peña, affirm in PLRA",
-        "The Fed begins key meeting with expectation of new cuts",
-        "New setback in consumer confidence index"
+        "Santiago Peña enacts law that reforms the fiscal box",
+        "MEF: Fiscal Box will need to be reformed again in five years with Senate version",
+        "Government looks at company reserves and does not rule out applying taxes to them",
+        "Agents foresee higher inflation this month, and dollar will continue to fall",
+        "Federal Reserve maintains interest rates and sends bad news to Trump"
       ]
     },
     {
@@ -592,17 +598,19 @@
         "lat": -16.5,
         "lng": -68.15
       },
-      "spread": 0,
-      "spread_change": 0,
-      "signal": "NEUTRAL",
-      "spread_history": [],
-      "summary": "Bolivia's President Paz announced a new \"50-50\" hydrocarbon law to attract investment and boost regional development, while also signing multiple cooperation agreements with Brazil including potential partnerships with Petrobras. The country is facing ongoing security challenges with the high-profile capture and extradition of drug trafficker Sebastián Marset, alongside preparations for upcoming subnational elections on March 22.",
+      "spread": 600,
+      "spread_change": 600,
+      "signal": "WATCH",
+      "spread_history": [
+        600
+      ],
+      "summary": "Bolivia faces a critical foreign currency crisis with international reserves falling to just $340 million, prompting the central bank to consider converting gold reserves to dollars for liquidity. The country is simultaneously dealing with major security issues including the arrest of drug lord Sebastián Marset and the son of former president Arce on money laundering charges.",
       "headlines": [
-        "Paz announces new Hydrocarbon Law with \"50-50\" scheme to attract investment and boost regional development",
-        "President of Bolivia wants to \"relaunch\" relationship with Brazilian oil company Petrobras",
-        "Bolivia and Brazil sign three agreements and advance on 17 other conventions after meeting between Paz and Lula",
-        "Government paralizes rice imports until harvest concludes and reinforces controls against smuggling",
-        "Diego Gutiérrez, CEO of Tigo: \"The commitment is to advance at the pace the country needs\""
+        "Foreign currency reserves reach $340 million and the central bank advances with normal Series B banknote exchange",
+        "Economist warns that selling BCB gold would give temporary liquidity, but would not resolve dollar shortage",
+        "How BOA will save the State $5 million",
+        "Bolivia and Brazil advance in energy integration with electrical interconnection agreement",
+        "Bolivia and Ukraine reactivate ties after two decades: \"It's a symbol of change in their foreign policy\""
       ]
     },
     {
@@ -617,12 +625,20 @@
         "lat": 10.48,
         "lng": -66.9
       },
-      "spread": 0,
-      "spread_change": 0,
-      "signal": "NEUTRAL",
-      "spread_history": [],
-      "summary": "",
-      "headlines": []
+      "spread": 929,
+      "spread_change": 929,
+      "signal": "AVOID",
+      "spread_history": [
+        929
+      ],
+      "summary": "No actual news content was provided - only a JavaScript loading message was included in the submission.\nUnable to analyze Venezuelan news or assess potential impact on government bond prices without proper content.",
+      "headlines": [
+        "No headlines available",
+        "No headlines available",
+        "No headlines available",
+        "No headlines available",
+        "No headlines available"
+      ]
     },
     {
       "country": "Costa Rica",
@@ -636,17 +652,19 @@
         "lat": 9.93,
         "lng": -84.08
       },
-      "spread": 0,
-      "spread_change": 0,
-      "signal": "NEUTRAL",
-      "spread_history": [],
-      "summary": "Costa Rica faces significant fiscal challenges as lawmakers advance pension increases for higher-income retirees, creating additional budget pressures on the social security system. The exchange rate continues declining to historic lows below ₡470 per dollar, while analysts monitor Federal Reserve and ECB interest rate decisions amid Iran conflict tensions.",
+      "spread": 175,
+      "spread_change": 175,
+      "signal": "WATCH",
+      "spread_history": [
+        175
+      ],
+      "summary": "Costa Rica faces mounting fiscal pressures as the social security agency (CCSS) warns that congressional plans to increase IVM pensions without proper financing could endanger the entire pension system. The country is also experiencing diplomatic tensions after closing its embassy in Cuba, which Cuba claims shows Costa Rica's subordination to U.S. foreign policy.",
       "headlines": [
-        "Deputies would raise IVM pensions for higher-income individuals",
-        "Exchange rate continues falling in Monex, price marks new historic low",
-        "Analysts point out that the Fed and ECB will maintain interest rates in their first meeting after the Iran conflict",
-        "Deputies approve two projects that would allow accelerated withdrawal of ROP pension",
-        "FEES 2027: How public university rectors envision negotiation after first conciliatory session"
+        "CCSS gives reality check on deputies' plan to raise IVM pensions: adding benefits without financing would put the regime in danger",
+        "Lack of experience and suitability of 3 CCSS executives could put IVM pensions at risk, warns Supén",
+        "Costa Rica closes its embassy in Cuba and asks the island to reduce its diplomatic personnel in San José",
+        "San Carlos experiences business boom driven by free trade zones",
+        "Wall Street closes lower worried about inflation"
       ]
     },
     {
@@ -661,17 +679,19 @@
         "lat": 14.63,
         "lng": -90.51
       },
-      "spread": 0,
-      "spread_change": 0,
-      "signal": "NEUTRAL",
-      "spread_history": [],
-      "summary": "Guatemala's Congress approved pension reforms requiring IPM retirees to receive minimum wage benefits while mandating financial sustainability studies. Political tensions persist over Constitutional Court renewal processes amid legal challenges and international oversight concerns.",
+      "spread": 200,
+      "spread_change": 200,
+      "signal": "WATCH",
+      "spread_history": [
+        200
+      ],
+      "summary": "Guatemala faces political uncertainty as legal challenges threaten the renewal of the Constitutional Court, with multiple injunctions filed against the election process. The country is also dealing with rising fuel prices that could trigger government subsidies for gasoline and propane, while microenterprises continue to dominate the economy due to structural issues.",
       "headlines": [
-        "Congress approves raising IPM pensions to minimum wage and mandating financial evaluation",
-        "Entrepreneurs warn that without structural changes, microenterprises will continue dominating the economy",
-        "Political parties at risk of not participating in 2027 general elections due to lack of affiliates",
+        "Congress analyzes subsidies for gasoline and gas: these are the two initiatives under discussion",
         "War of injunctions puts Constitutional Court renewal at risk",
-        "DIACO presents 37 new complaints for fuel price speculation"
+        "Businessmen warn that without structural changes microenterprises will continue dominating the economy",
+        "Will bread prices rise? Guild explains scenarios faced by bakeries due to fuel price increases",
+        "High government housing official requests help from wedding guests to buy a house"
       ]
     },
     {
@@ -686,17 +706,19 @@
         "lat": 14.07,
         "lng": -87.19
       },
-      "spread": 0,
-      "spread_change": 0,
-      "signal": "NEUTRAL",
-      "spread_history": [],
-      "summary": "Honduras faces ongoing political tensions with electoral disputes and security challenges including gang violence and extortion activities affecting transportation sectors. The country is dealing with infrastructure concerns following a fatal airline accident while managing local economic pressures from rising food prices ahead of Easter season.",
+      "spread": 350,
+      "spread_change": 350,
+      "signal": "WATCH",
+      "spread_history": [
+        350
+      ],
+      "summary": "Honduras faces ongoing security challenges with high-profile assassinations and criminal violence, while the government proposes controversial penal code reforms including lowering the punishable age to 12 years. The country maintains energy security with sufficient electricity capacity to meet projected demand through 2026, though political and social tensions persist.",
       "headlines": [
-        "Nasry Asfura postpones energy tender and seeks investment",
-        "Honduras seeks to declare MS-13 and 18th Street gangs as terrorist organizations",
-        "TJE defends election repetition in Guanaja following conflict",
-        "Dried fish scarcity drives up prices ahead of Easter Week",
-        "Cold front in Honduras: green alert in five departments"
+        "ENEE rules out energy crisis in 2026 and guarantees supply",
+        "Congress analyzes electoral reforms proposed by the CNA",
+        "Proposal to criminally sanction minors from age 12, proposes reforms to Penal Code",
+        "UN signs agreement to strengthen food security in Honduras and Central America",
+        "Texas oil rises to $96.32 after cross attacks on Middle East refineries"
       ]
     }
   ]
